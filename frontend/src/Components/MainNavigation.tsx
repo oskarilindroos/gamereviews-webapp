@@ -8,19 +8,19 @@ const MainNavigation = () => {
                     <div className="flex items-">
                         <li>
                             <Link to="/">
-                                <h1 className="font-mono text-gray-300 text-6xl">GamesReview</h1>
+                                <h1 className="font-mono text-gray-100 text-6xl">GamesReview</h1>
                             </Link>
                         </li>
                     </div>
                     <div className="flex flex-row ml-auto">
                         <li>
                             <Link to="/">
-                                <h1 className="font-mono text-gray-300 text-4xl px-10">games</h1>
+                                <h1 className="font-mono text-gray-100 text-4xl px-10">games</h1>
                             </Link>
                         </li>
                         <li>
                             <Link to="/">
-                                <h1 className="font-mono text-gray-300 text-4xl px-10">sign in</h1>
+                                <h1 className="font-mono text-gray-100 text-4xl px-10">sign in</h1>
                             </Link>
                         </li>
                     </div>
