@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom';
 
-//The navigation happens here
 const MainNavigation = () => {
     return (
         <header>
             <nav>
-                <ul>
-                    <li>
-                        <h1>test1</h1>
-                        <Link to="/">
-                        </Link>
-                    </li>
-                    <li>
-                    <h1>test2</h1>
-                        <Link to="/">
-                        </Link>
-                    </li>
+                <ul className="flex flex-row items-baseline">
+                    <div className="flex items-">
+                        <li>
+                            <Link to="/">
+                                <h1 className="font-mono text-gray-300 text-6xl">GamesReview</h1>
+                            </Link>
+                        </li>
+                    </div>
+                    <div className="flex flex-row ml-auto">
+                        <li>
+                            <Link to="/">
+                                <h1 className="font-mono text-gray-300 text-4xl px-10">games</h1>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/">
+                                <h1 className="font-mono text-gray-300 text-4xl px-10">sign in</h1>
+                            </Link>
+                        </li>
+                    </div>
                 </ul>
             </nav>
         </header>
