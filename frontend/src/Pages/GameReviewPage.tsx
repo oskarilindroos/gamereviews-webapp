@@ -21,11 +21,11 @@ const dummyData: GameReviewData[] = [
 
 const GameReviewPage = () => {
     const { gameId } = useParams();
-    // TODO: Fetch actual reviews using this id
+    // TODO: Fetch actual reviews using gameId
 
     return (
-        <div className="bg-indigo-dye">
-            <div>
+        <div className="bg-indigo-dye text-gray-100 font-mono w-screen h-screen flex justify-center overflow-auto">
+            <div className="w-10/12">
                 {dummyData.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
         </div>
