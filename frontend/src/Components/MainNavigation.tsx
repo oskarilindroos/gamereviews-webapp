@@ -14,7 +14,7 @@ const MainNavigation = () => {
                     </div>
                     <div className="flex flex-row ml-auto">
                         <li>
-                            <Link to="/">
+                            <Link to="/search">
                                 <h1 className="font-mono text-gray-100 text-4xl px-10">games</h1>
                             </Link>
                         </li>
