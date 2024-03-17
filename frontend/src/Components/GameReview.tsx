@@ -7,7 +7,7 @@ const GameReview = ({ review }: props) => {
     const { userName, reviewText, score } = review;
     return (
         <div className="my-5">
-            <div className="bg-bice-blue flex flex-row justify-between p-5">
+            <div className="bg-bice-blue flex flex-row max-[350px]:flex-col justify-between p-5">
                 <p className="text-4xl">Review by: {userName}</p>
                 <p className="text-7xl">{score}</p>
             </div>

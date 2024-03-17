@@ -33,27 +33,27 @@ const GameReviewPage = () => {
         <div className="bg-indigo-dye text-gray-100 font-mono w-screen h-screen flex flex-col items-center overflow-auto">
 
             <div className="w-10/12 flex flex-col py-10 grow">
-                <div className="flex flex-row max-xl:flex-col">
+                <div className="flex flex-row max-md:flex-col">
 
-                    <div className="flex w-5/12 max-xl:hidden mr-3">
-                        <img src={gameInfo.image} className="object-cover"></img>
+                    <div className="flex w-5/12 max-md:w-full  mr-3">
+                        <img src={gameInfo.image} className="object-fit"></img>
                     </div>
 
 
-                    <div className="flex flex-col w-7/12 max-xl:w-full ">
+                    <div className="flex flex-col w-7/12 max-md:w-full ">
 
-                        <div className="bg-bice-blue h-1/3 p-5 flex items-center justify-center">
-                            <p className="truncate text-sm sm:text-4xl">{gameInfo.name}</p>
+                        <div className="bg-bice-blue h-1/3 max-md:mt-3 md:p-5 flex items-center justify-center">
+                            <h1 className="text-2xl sm:text-4xl text-center">{gameInfo.name}</h1>
                         </div>
 
-                        <div className="h-1/3 flex items-center p-5">
-                            <p className="text-7xl max-xl:text-4xl">
+                        <div className="h-1/3 flex items-center max-md:mt-3 md:p-5">
+                            <p className="text-7xl max-md:text-4xl">
                                 {averageScore(dummyData)}
                             </p>
                         </div>
 
-                        <div className="h-1/3 flex items-center p-5">
-                            <p className="text-sm sm:text-base truncate">
+                        <div className="h-1/3 flex items-center max-md:mt-3 md:p-5">
+                            <p className="text-sm sm:text-base">
                                 {gameInfo.tags.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
                             </p>
                         </div>
