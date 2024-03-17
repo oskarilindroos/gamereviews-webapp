@@ -1,14 +1,19 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ErrorPage from '../Pages/ErrorPage';
-import Placeholder from '../Pages/Placeholder';
+
 import GameReviewPage from '../Pages/GameReviewPage';
+
+import RootLayout from '../Pages/RootLayout';
+import FrontPage from '../Pages/FrontPage';
+
 
 const router = createBrowserRouter([{
     path: '/',
+    element: <RootLayout/>,
     errorElement: <ErrorPage />,
     children: [
-        { index: true, element: <Placeholder /> },
         { path: '/reviews/:gameId', element: <GameReviewPage /> }
+        { index: true, element: <FrontPage /> },
     ]
 }]);
 
