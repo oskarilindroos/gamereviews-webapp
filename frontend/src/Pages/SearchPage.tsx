@@ -25,20 +25,26 @@ const SearchPage = () => {
 
                 </div>
             </div>
-            <div className="mt-40">
+            <div className="mt-20">
                 <div className="flex flex-col items-center">
                     <ul className="flex flex-row items-baseline mt-8">
                         <li>
-                            <img className="h-96 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-80 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-96 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-80 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-96 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-80 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-96 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-80 mx-4" src={Poster}></img>
+                        </li>
+                        <li>
+                            <img className="h-80 mx-4" src={Poster}></img>
+                        </li>
+                        <li>
+                            <img className="h-80 mx-4" src={Poster}></img>
                         </li>
                     </ul>
                     <div className="mb-40"></div>
