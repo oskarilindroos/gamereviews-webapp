@@ -15,28 +15,28 @@ const FrontPage = () => {
                     <h1 className="font-mono text-gray-100 text-4xl self-center">currently trending</h1>
                     <ul className="flex flex-row items-baseline mt-8">
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                         <li>
-                            <img className="h-64 ml-auto mx-4" src={Poster}></img>
+                            <img className="h-64 mx-4" src={Poster}></img>
                         </li>
                     </ul>
                     <div className="mb-40"></div>
