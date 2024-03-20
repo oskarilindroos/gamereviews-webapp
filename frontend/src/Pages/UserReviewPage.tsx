@@ -4,7 +4,7 @@ import UserReview from "../Components/UserReview"
 import UserReviewGridHeader from "../Components/UserReviewGridHeader"
 import { UserReviewData } from "../Types"
 
-const user = "elonmusk"
+
 
 const dummyData: UserReviewData[] = [
     {
@@ -30,9 +30,15 @@ const dummyData: UserReviewData[] = [
 
 const UserReviewPage = () => {
     const { userId } = useParams()
+    const userName = "elonmusk"
     // TODO: Fetch actual username and reviews from API based on user ID
     return (
-        <div className=" text-gray-100">
+        <div className=" text-gray-100 font-mono">
+            <div className="my-4">
+                <h1 className="text-xl font-bold">
+                    Reviews posted by user "{userName}":
+                </h1>
+            </div>
             <div className="grid grid-cols-1 gap-2 ">
                 <UserReviewGridHeader />
                 {dummyData.map((item, index) => <UserReview key={index} review={item}></UserReview>)}

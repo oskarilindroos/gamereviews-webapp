@@ -11,12 +11,10 @@ const UserReview = ({ review }: props) => {
                 <p className="">
                     {gameTitle}
                 </p>
-
             </div>
 
-            <div className="justify-self-center">
+            <div className="justify-self-center sm:text-4xl">
                 <p>{score}</p>
-
             </div>
 
             <div className="sm:col-span-11 max-sm:hidden">
@@ -26,15 +24,21 @@ const UserReview = ({ review }: props) => {
             </div>
 
 
-            <div className="col-span-2 justify-self-center">
+            <div className="col-span-2 justify-self-center p-1">
                 {/* TODO: Wrap in a Link that leads to  */}
                 {/* TODO: Make visible only if userId in localStorage matches userId parameter */}
-                <p>Edit</p>
+                <button
+                    className="bg-picton-blue p-2 rounded-full"
+                    onClick={() => {/* TODO: Open edit mode */ }}>
+                    Edit
+                </button>
             </div>
 
-            <div className="col-span-2 justify-self-end pr-2">
+            <div className="col-span-2 justify-self-end p-1">
                 {/* TODO: Make visible only if userId in localStorage matches userId parameter */}
-                <button onClick={() => {/* TODO: Call DELETE endpoint */ }}>
+                <button
+                    className="bg-red-500 p-2 rounded-full"
+                    onClick={() => {/* TODO: Call DELETE endpoint */ }}>
                     Delete
                 </button>
 
