@@ -10,4 +10,10 @@ export type GameReviewData = {
     score: number,
 }
 
-export type UserReviewData = GameReviewData & { gameTitle: string }
+export type UserReviewData = {
+    reviewText: string
+    score: number,
+    gameTitle: string,
+    reviewId: string,
+    gameId: string
+}
