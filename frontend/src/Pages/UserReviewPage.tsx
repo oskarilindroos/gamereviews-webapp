@@ -32,7 +32,7 @@ const UserReviewPage = () => {
     // TODO: Fetch actual username and reviews from API based on user ID
     return (
         <div className=" text-gray-100">
-            <div className="grid grid-cols-12 gap-2 bg-bice-blue">
+            <div className="grid grid-cols-1 gap-2 ">
                 {dummyData.map((item, index) => <UserReview key={index} review={item}></UserReview>)}
             </div>
         </div>
