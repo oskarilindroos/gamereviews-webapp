@@ -9,3 +9,5 @@ export type GameReviewData = {
     reviewText: string
     score: number,
 }
+
+export type UserReviewData = GameReviewData & { gameTitle: string }
