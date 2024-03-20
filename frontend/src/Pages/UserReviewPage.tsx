@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 
 import UserReview from "../Components/UserReview"
+import UserReviewGridHeader from "../Components/UserReviewGridHeader"
 import { UserReviewData } from "../Types"
 
 const user = "elonmusk"
@@ -33,6 +34,7 @@ const UserReviewPage = () => {
     return (
         <div className=" text-gray-100">
             <div className="grid grid-cols-1 gap-2 ">
+                <UserReviewGridHeader />
                 {dummyData.map((item, index) => <UserReview key={index} review={item}></UserReview>)}
             </div>
         </div>

@@ -6,11 +6,11 @@ type props = {
 const UserReview = ({ review }: props) => {
     const { gameTitle, reviewText, score, reviewId, gameId } = review;
     return (
-        <div className="grid grid-cols-18 gap-2 bg-bice-blue">
+        <div className="grid grid-cols-7 sm:grid-cols-18 gap-2 bg-bice-blue">
             <div className="col-span-2">
-                <h2 className="">
+                <p className="">
                     {gameTitle}
-                </h2>
+                </p>
 
             </div>
 
@@ -19,17 +19,21 @@ const UserReview = ({ review }: props) => {
 
             </div>
 
-            <div className="col-span-11 ">
+            <div className="sm:col-span-11 max-sm:hidden">
                 <p className="truncate">
                     {reviewText}
                 </p>
             </div>
 
+
             <div className="col-span-2 justify-self-center">
-                Edit
+                {/* TODO: Wrap in a Link that leads to  */}
+                {/* TODO: Make visible only if userId in localStorage matches userId parameter */}
+                <p>Edit</p>
             </div>
 
-            <div className="col-span-2 justify-self-end">
+            <div className="col-span-2 justify-self-end pr-2">
+                {/* TODO: Make visible only if userId in localStorage matches userId parameter */}
                 <button onClick={() => {/* TODO: Call DELETE endpoint */ }}>
                     Delete
                 </button>
