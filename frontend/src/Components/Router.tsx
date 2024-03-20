@@ -10,12 +10,12 @@ import SearchPage from '../Pages/SearchPage';
 
 const router = createBrowserRouter([{
     path: '/',
-    element: <RootLayout/>,
+    element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-        { path: '/reviews/:gameId', element: <GameReviewPage /> }
+        { path: '/reviews/:gameId', element: <GameReviewPage /> },
         { index: true, element: <FrontPage /> },
-        {path: '/search', element: <SearchPage />}
+        { path: '/search', element: <SearchPage /> }
     ]
 }]);
 
