@@ -23,7 +23,7 @@ const WriteReviewPage = () => {
     }
 
     return (
-        <div>
+        <div className="text-gray-100 font-mono flex flex-col items-center">
             <ReviewForm submitHandler={submitHandler} />
         </div>
     )
