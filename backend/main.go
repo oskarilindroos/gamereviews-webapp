@@ -6,11 +6,17 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
+	"github.com/oskarilindroos/review-app/games"
 )
 
 func main() {
 	log.Println("Starting server...")
+
+	// Initialize routers
+	r := mux.NewRouter()
+	gamesRouter := games.NewRouter()
 
 	err := godotenv.Load()
 	if err != nil {
@@ -24,11 +30,12 @@ func main() {
 		port = "5000"
 	}
 
-	http.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
+	r.PathPrefix("/api/games").Handler(http.StripPrefix("/api/games", gamesRouter))
+	r.HandleFunc("/api/health", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "OK")
 	})
 
 	log.Println("Server listening on port", port)
 
-	http.ListenAndServe(":"+port, nil)
+	http.ListenAndServe(":"+port, r)
 }
