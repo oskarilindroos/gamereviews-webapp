@@ -8,15 +8,15 @@ type props = {
 }
 
 const ReviewForm = ({ submitHandler }: props) => {
+
     const { register, handleSubmit } = useForm<GameReviewData>()
     return (
-
-        <form className="w-full" onSubmit={handleSubmit(submitHandler)}>
+        <form className="w-full my-2" onSubmit={handleSubmit(submitHandler)}>
             <div className="flex flex-col">
-                <div>
+                <div className="my-2">
                     <label>Score:</label>
                     {/* Create a dropdown with 5 elements */}
-                    <select {...register("score")} className="bg-bice-blue">
+                    <select {...register("score")} className="bg-bice-blue py-2 px-4">
                         {[...Array(5)].map((_, n) => (
                             <option key={n + 1} value={n + 1}>
                                 {n + 1}
@@ -25,7 +25,7 @@ const ReviewForm = ({ submitHandler }: props) => {
                     </select>
                 </div>
 
-                <div>
+                <div className="my-2">
                     <label>Review:</label>
                 </div>
 
@@ -33,7 +33,7 @@ const ReviewForm = ({ submitHandler }: props) => {
                     <textarea rows={10} className="w-full bg-bice-blue" {...register("reviewText")} />
                 </div>
 
-                <div>
+                <div className="my-2">
                     <button type="submit">
                         Submit review
                     </button>
