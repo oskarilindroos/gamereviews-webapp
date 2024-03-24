@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom"
+import { useState } from "react"
 
 import ReviewForm from "../Components/ReviewForm"
 import { GameReviewData } from "../Types"
@@ -6,7 +7,6 @@ import { GameReviewData } from "../Types"
 
 
 const WriteReviewPage = () => {
-
     // TODO: Fetch actual gameInfo using gameId
     const gameInfo = {
         name: "Zombies shat on my brains",
@@ -34,7 +34,7 @@ const WriteReviewPage = () => {
             <div className="grid grid-cols-2 gap-2 mt-10 mb-5">
 
                 <div className="">
-                    <img src={gameInfo.image} className="object-fit"></img>
+                    <img src={gameInfo.image} alt={`Cover image of ${gameInfo.name}`} className="object-fit"></img>
                 </div>
 
                 <div className="bg-bice-blue flex items-center justify-center">
