@@ -16,7 +16,7 @@ const ReviewForm = ({ submitHandler }: props) => {
                 <div className="my-2">
                     <label>Score:</label>
                     {/* Create a dropdown with 5 elements */}
-                    <select {...register("score")} className="bg-bice-blue py-2 px-4">
+                    <select {...register("score")} className="bg-bice-blue py-2 px-4 rounded-md">
                         {[...Array(5)].map((_, n) => (
                             <option key={n + 1} value={n + 1}>
                                 {n + 1}
@@ -30,12 +30,12 @@ const ReviewForm = ({ submitHandler }: props) => {
                 </div>
 
                 <div>
-                    <textarea rows={10} className="w-full bg-bice-blue" {...register("reviewText")} />
+                    <textarea rows={5} className="w-full bg-bice-blue" {...register("reviewText")} />
                 </div>
 
                 <div className="my-2">
-                    <button type="submit">
-                        Submit review
+                    <button className="bg-picton-blue p-2 rounded-full" type="submit">
+                        Submit
                     </button>
                 </div>
             </div>
