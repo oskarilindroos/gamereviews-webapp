@@ -14,13 +14,13 @@ const MainNavigation = () => {
                     </div>
                     <div className="flex flex-row ml-auto">
                         <li>
-                            <Link to="/">
-                                <h1 className="font-mono text-gray-100 text-4xl px-10">games</h1>
+                            <Link to="/search">
+                                <h1 className="font-mono text-gray-100 text-4xl ml-10">games</h1>
                             </Link>
                         </li>
                         <li>
                             <Link to="/">
-                                <h1 className="font-mono text-gray-100 text-4xl px-10">sign in</h1>
+                                <h1 className="font-mono text-gray-100 text-4xl ml-10">sign in</h1>
                             </Link>
                         </li>
                     </div>

@@ -3,3 +3,9 @@ export type GameSummary = {
     name: string,
     description: string
 }
+
+export type GameReviewData = {
+    userName: string,
+    reviewText: string
+    score: number,
+}
