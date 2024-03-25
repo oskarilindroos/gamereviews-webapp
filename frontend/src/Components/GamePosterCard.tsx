@@ -1,20 +1,36 @@
 import { GameSummary } from "../Types"
 type props = {
-    game: GameSummary
+    game: GameSummary,
+    page: string
 }
 
-const GamePosterCard = ({ game }: props) => {
-    const { name, description, image } = game
+const GamePosterCard = ({ game, page }: props) => {
+    const { name, description, image } = game;
+
+    const goToPage = () => {
+        console.log("test")
+    };
+
+    let poster = <img className="h-64 mx-4" src={image} onClick={goToPage}></img>;
+
+    switch(page) {
+        case "FrontPage": {
+            poster = <img className="h-64 mx-4" src={image} onClick={goToPage}></img>
+            break;
+        }
+        case "SearchPage": {
+            poster = <img className="h-80 mx-4" src={image} onClick={goToPage}></img>
+            break;
+        }
+        default: {
+            poster = <img className="h-64 mx-4" src={image} onClick={goToPage}></img>
+        }
+    }
+
     return (
-        <div className="bg-bice-blue rounded-md text-white p-4 h-[18rem] w-[11rem] overflow-hidden">
-            <div className="h-1/4 flex flex-row justify-between gap-2 mb-2">
-                <h1 className="text-left flex w-3/4 font-bold p-2">{name}</h1>
-                <img src={image} className="object-fit  p-2" />
-            </div>
-            <div className="h-3/4">
-                <p>{description}</p>
-            </div>
-        </div>
+        <>
+            {poster}
+        </>
     )
 }
 
