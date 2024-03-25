@@ -2,17 +2,44 @@ import DropdownMenu from '../Components/DropdownMenu';
 import Poster from '../Assets/poster_template.png'
 import SearchBar from '../Components/SearchBar';
 import GamePosterCard from '../Components/GamePosterCard';
+import PosterRow from '../Components/PosterRow';
 import { GameSummary } from "../Types"
 
 const SearchPage = () => {
 
     let testArray: string[] = ['Test1', 'Test2', 'Test3'];
 
-    let testGame: GameSummary = {
+    let testGames: GameSummary[] = [{
+        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
+        name: "Dusk",
+        description: "game"
+    },
+    {
+        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
+        name: "Dusk",
+        description: "game"
+    },
+    {
+        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
+        name: "Dusk",
+        description: "game"
+    },
+    {
+        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
+        name: "Dusk",
+        description: "game"
+    },
+    {
+        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
+        name: "Dusk",
+        description: "game"
+    },
+    {
         image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
         name: "Dusk",
         description: "game"
     }
+    ];
 
     const handleSearch = (searchTerm: string) => {
         console.log('Searching for:', searchTerm);
@@ -42,70 +69,19 @@ const SearchPage = () => {
             <div className="mt-4">
                 <div className="flex flex-col items-center">
                     <ul className="flex flex-row items-baseline mt-8">
-                        <li>
-                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
-                        </li>
-                        <li>
-                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
-                        </li>
-                        <li>
-                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
-                        </li>
-                        <li>
-                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
-                        </li>
-                        <li>
-                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
-                        </li>
-                        <li>
-                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
-                        </li>
+                        <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
                     </ul>
                     <div className="mb-2"></div>
                 </div>
                 <div className="flex flex-col items-center">
                     <ul className="flex flex-row items-baseline mt-8">
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
+                        <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
                     </ul>
                     <div className="mb-2"></div>
                 </div>
                 <div className="flex flex-col items-center">
                     <ul className="flex flex-row items-baseline mt-8">
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
-                        <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
-                        </li>
+                        <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
                     </ul>
                     <div className="mb-40"></div>
                 </div>
