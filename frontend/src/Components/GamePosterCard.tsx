@@ -15,15 +15,15 @@ const GamePosterCard = ({ game, page }: props) => {
 
     switch(page) {
         case "FrontPage": {
-            poster = <img className="h-64 mx-4" src={image} onClick={goToPage}></img>
+            poster = <img className="w-11/12 mx-4" src={image} onClick={goToPage}></img>
             break;
         }
         case "SearchPage": {
-            poster = <img className="h-80 mx-4" src={image} onClick={goToPage}></img>
+            poster = <img className="w-11/12 mx-4" src={image} onClick={goToPage}></img>
             break;
         }
         default: {
-            poster = <img className="h-64 mx-4" src={image} onClick={goToPage}></img>
+            poster = <img className="w-11/12 mx-4" src={image} onClick={goToPage}></img>
         }
     }
 
