@@ -1,6 +1,10 @@
 import { useState } from 'react';
+type props = {
+  name: string,
+  content: string[]
+}
 
-const DropdownMenu = (props: { name: string, content: string[]}) => {
+const DropdownMenu = ({ name, content }: props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -23,7 +27,7 @@ const DropdownMenu = (props: { name: string, content: string[]}) => {
           aria-expanded="true"
           aria-haspopup="true"
         >
-          {props.name}
+          {name}
           <svg
             className="-mr-1 ml-2 h-10 w-10"
             xmlns="http://www.w3.org/2000/svg"
@@ -49,7 +53,7 @@ const DropdownMenu = (props: { name: string, content: string[]}) => {
         >
           <div className="py-1" role="none">
 
-            {props.content.map((c, index) => (
+            {content.map((c, index) => (
               <a
                 key={index}
                 onClick={temp}
