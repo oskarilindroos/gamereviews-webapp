@@ -1,6 +1,7 @@
 import DropdownMenu from '../Components/DropdownMenu';
 import Poster from '../Assets/poster_template.png'
 import SearchBar from '../Components/SearchBar';
+import GamePosterCard from '../Components/GamePosterCard';
 import { GameSummary } from "../Types"
 
 const SearchPage = () => {
@@ -42,22 +43,22 @@ const SearchPage = () => {
                 <div className="flex flex-col items-center">
                     <ul className="flex flex-row items-baseline mt-8">
                         <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
+                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
                         </li>
                         <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
+                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
                         </li>
                         <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
+                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
                         </li>
                         <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
+                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
                         </li>
                         <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
+                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
                         </li>
                         <li>
-                            <img className="h-80 mx-4" src={Poster}></img>
+                            <GamePosterCard game={testGame} page={"SearchPage"}></GamePosterCard>
                         </li>
                     </ul>
                     <div className="mb-2"></div>

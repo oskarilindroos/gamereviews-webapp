@@ -8,7 +8,7 @@ const GamePosterCard = ({ game, page }: props) => {
     const { name, description, image } = game;
 
     const goToPage = () => {
-        console.log("test")
+        console.log(name)
     };
 
     let poster = <img className="h-64 mx-4" src={image} onClick={goToPage}></img>;
