@@ -3,6 +3,7 @@ import ErrorPage from '../Pages/ErrorPage';
 
 import GameReviewPage from '../Pages/GameReviewPage';
 
+import WriteReviewPage from '../Pages/WriteReviewPage';
 import RootLayout from '../Pages/RootLayout';
 import FrontPage from '../Pages/FrontPage';
 import SearchPage from '../Pages/SearchPage';
@@ -15,9 +16,11 @@ const router = createBrowserRouter([{
     errorElement: <ErrorPage />,
     children: [
         { index: true, element: <FrontPage /> },
+        { path: '/search', element: <SearchPage /> },
         { path: '/user/:userId/reviews', element: <UserReviewPage /> },
         { path: '/reviews/:gameId', element: <GameReviewPage /> },
-        { path: '/search', element: <SearchPage /> }
+        { path: '/sendreview/:gameId/:reviewId', element: <WriteReviewPage /> },
+        { path: '/sendreview/:gameId', element: <WriteReviewPage /> }
     ]
 }]);
 
