@@ -8,7 +8,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
-	"github.com/oskarilindroos/review-app/games"
+	"github.com/oskarilindroos/review-app/internal/games"
 )
 
 func main() {

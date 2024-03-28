@@ -2,8 +2,7 @@
 
 ## To run the project locally
 
-`go run .`
+1. Install Go.
+2. Create .env file in the root directory with DB credentials etc.
+3. `go run cmd/review-app/main.go`
 
-## To build an executable
-
-`go build`
