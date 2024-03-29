@@ -3,13 +3,47 @@ package games
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
+	"github.com/oskarilindroos/review-app/internal/igdb"
 )
 
 // Get a list of all games (paginated?)
 func GetAllGames(w http.ResponseWriter, r *http.Request) {
-	// TODO: Implement this using IGDB
+	//TODO: tests, 
+
+	w.Header().Set("Content-Type", "application/json")
+
+	var page int = 1
+	var numberOfGames int = 50
+	var err error
+
+	if r.FormValue("pageNumber") != ""{
+		page, err = strconv.Atoi(r.FormValue("pageNumber"))
+		if err != nil{
+			http.Error(w,"page number was not a number", 400)
+			return
+		}
+	}
+	if r.FormValue("numberOfGames") !=""{
+		numberOfGames,err = strconv.Atoi(r.FormValue("numberOfGames"))
+		if err != nil {
+			http.Error(w,"number of games was not a number",400)
+			return
+		} else if numberOfGames < 1 {
+			http.Error(w,"number has to be 1 or bigger", 400)
+			return
+		}
+	}
+	
+	g,err := igdb.GetGames(numberOfGames,page)
+	if err != nil {
+		http.Error(w,"could not get games from igdb",500)
+		return
+	}
+	
+	json.NewEncoder(w).Encode(g)
 }
 
 // Get a list of all the reviews
