@@ -37,4 +37,3 @@ func ConnectToDB() (*sql.DB, error) {
 
 	return db, nil
 }
-
