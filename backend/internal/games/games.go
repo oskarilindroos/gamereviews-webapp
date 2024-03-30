@@ -9,11 +9,6 @@ type GameReviewResponse struct {
 	Rating   int    `json:"rating"`
 }
 
-type GameWithReviews struct {
-	Reviews []GameReviewResponse `json:"reviews"`
-	Game    IndividualGame       `json:"game"`
-}
-
 type GamesList struct {
 	GameID int    `json:"igdbId"`
 	Name   string `json:"name"`

@@ -76,10 +76,10 @@ func GetGameReviews(w http.ResponseWriter, r *http.Request) {
 		{ID: "1", IGDBID: 1, UserID: 1, Review: "This game is great!", Rating: 5},
 		{ID: "2", IGDBID: 1, UserID: 2, Review: "I didn't like this game", Rating: 1},
 	}
+	game.Reviews = reviews
 
-	GwR := GameWithReviews{Game:*game, Reviews: reviews}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(GwR)
+	json.NewEncoder(w).Encode(game)
 }
 
 // Create a new review for a game
