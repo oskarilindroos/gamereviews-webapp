@@ -33,14 +33,14 @@ const GameReviewPage = () => {
         <div className="bg-indigo-dye text-gray-100 font-mono flex flex-col items-center overflow-auto">
 
             <div className="flex flex-col py-10 grow">
-                <div className="flex flex-row max-md:flex-col">
+                <div className="flex flex-row max-lg:flex-col">
 
-                    <div className="flex w-5/12 max-md:w-full  mr-3">
-                        <img src={gameInfo.image} className="object-fit"></img>
+                    <div className="flex flex-col w-5/12 max-lg:w-full justify-start mr-3">
+                        <img src={gameInfo.image} className="object-contain"></img>
                     </div>
 
 
-                    <div className="flex flex-col w-7/12 max-md:w-full ">
+                    <div className="flex flex-col w-7/12 max-lg:w-full ">
 
                         <div className="bg-bice-blue max-md:mt-3 md:p-5 flex items-center justify-center">
                             <h1 className="text-4xl lg:text-7xl text-center">{gameInfo.name}</h1>
