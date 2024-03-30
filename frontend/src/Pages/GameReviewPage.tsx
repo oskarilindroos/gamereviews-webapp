@@ -32,7 +32,7 @@ const GameReviewPage = () => {
     return (
         <div className="bg-indigo-dye text-gray-100 font-mono flex flex-col items-center overflow-auto">
 
-            <div className="w-10/12 flex flex-col py-10 grow">
+            <div className="flex flex-col py-10 grow">
                 <div className="flex flex-row max-md:flex-col">
 
                     <div className="flex w-5/12 max-md:w-full  mr-3">
@@ -52,7 +52,7 @@ const GameReviewPage = () => {
                             </p>
                         </div>
 
-                        <div className=" flex items-center max-md:mt-3 md:p-5">
+                        <div className="flex items-center max-md:mt-3 md:p-5">
                             <p className="text-sm sm:text-base">
                                 {gameInfo.tags.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
                             </p>
@@ -73,7 +73,7 @@ const GameReviewPage = () => {
                 <p className="text-4xl">Leave a review</p>
             </div>
 
-            <div className="w-10/12">
+            <div>
                 {dummyData.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
 
