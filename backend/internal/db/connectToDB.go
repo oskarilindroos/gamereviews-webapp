@@ -2,7 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
 
@@ -33,7 +32,7 @@ func ConnectToDB() (*sql.DB, error) {
 		log.Fatal(pingErr)
 		return nil, pingErr
 	}
-	fmt.Println("connected!")
+	log.Println("Connected to database")
 
 	return db, nil
 }
