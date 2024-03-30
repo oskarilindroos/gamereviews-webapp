@@ -30,7 +30,7 @@ const GameReviewPage = () => {
     }
 
     return (
-        <div className="bg-indigo-dye text-gray-100 font-mono w-screen h-screen flex flex-col items-center overflow-auto">
+        <div className="bg-indigo-dye text-gray-100 font-mono flex flex-col items-center overflow-auto">
 
             <div className="w-10/12 flex flex-col py-10 grow">
                 <div className="flex flex-row max-md:flex-col">
