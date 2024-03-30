@@ -64,11 +64,13 @@ func GetGameReviews(w http.ResponseWriter, r *http.Request) {
 
 	 gID,err :=strconv.Atoi(gameId)
 	 if err != nil {
-		http.Error(w,"game id was not an integer",500)
+		http.Error(w,"game id was not an integer",400)
+		return
 	 }
 	 game,err :=GetGameByID(gID)
 	 if err != nil {
-		http.Error(w,"could not get game with that id",500)
+		http.Error(w,"no games with that id",400)
+		return
 	 }
 	  
 
