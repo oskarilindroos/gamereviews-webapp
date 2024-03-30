@@ -5,46 +5,17 @@ import { GameSummary } from '../Types';
 
 const FrontPage = () => {
 
-    let testGames: GameSummary[] = [{
+    const testGame: GameSummary = {
+
         image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
         name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
-    },
-    {
-        image: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        description: "game"
+        description: "game",
+        id: "1"
     }
+
+    let testGames: GameSummary[] = [
+        testGame, testGame, testGame, testGame,
+        testGame, testGame, testGame, testGame
     ];
 
 
