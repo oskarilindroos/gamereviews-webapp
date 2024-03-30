@@ -6,13 +6,7 @@ import (
 	"strconv"
 
 	"github.com/gorilla/mux"
-	"github.com/oskarilindroos/review-app/internal/igdb"
 )
-
-type GameWithReviews struct{
-	Reviews []GameReviewResponse
-	Game igdb.IndividualGame
-}
 
 // Get a list of all games (paginated?)
 func GetAllGames(w http.ResponseWriter, r *http.Request) {
@@ -42,7 +36,7 @@ func GetAllGames(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	
-	g,err := igdb.GetGames(numberOfGames,page)
+	g,err := GetGames(numberOfGames,page)
 	if err != nil {
 		http.Error(w,"could not get games from igdb",500)
 		return
@@ -72,7 +66,7 @@ func GetGameReviews(w http.ResponseWriter, r *http.Request) {
 	 if err != nil {
 		http.Error(w,"game id was not an integer",500)
 	 }
-	 game,err :=igdb.GetGameByID(gID)
+	 game,err :=GetGameByID(gID)
 	 if err != nil {
 		http.Error(w,"could not get game with that id",500)
 	 }
