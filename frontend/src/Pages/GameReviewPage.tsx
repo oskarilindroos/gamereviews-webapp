@@ -42,17 +42,17 @@ const GameReviewPage = () => {
 
                     <div className="flex flex-col w-7/12 max-md:w-full ">
 
-                        <div className="bg-bice-blue h-1/3 max-md:mt-3 md:p-5 flex items-center justify-center">
-                            <h1 className="text-2xl sm:text-4xl text-center">{gameInfo.name}</h1>
+                        <div className="bg-bice-blue max-md:mt-3 md:p-5 flex items-center justify-center">
+                            <h1 className="sm:text-4xl lg:text-7xl text-center">{gameInfo.name}</h1>
                         </div>
 
-                        <div className="h-1/3 flex items-center max-md:mt-3 md:p-5">
+                        <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p className="text-7xl max-md:text-4xl">
                                 {averageScore(dummyData)}
                             </p>
                         </div>
 
-                        <div className="h-1/3 flex items-center max-md:mt-3 md:p-5">
+                        <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p className="text-sm sm:text-base">
                                 {gameInfo.tags.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
                             </p>
