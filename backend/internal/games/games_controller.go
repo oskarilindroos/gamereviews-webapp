@@ -9,6 +9,11 @@ import (
 	"github.com/oskarilindroos/review-app/internal/igdb"
 )
 
+type GameWithReviews struct{
+	Reviews []GameReviewResponse
+	Game igdb.IndividualGame
+}
+
 // Get a list of all games (paginated?)
 func GetAllGames(w http.ResponseWriter, r *http.Request) {
 	//TODO: tests, 
@@ -60,16 +65,27 @@ func GetAllGameReviews(w http.ResponseWriter, r *http.Request) {
 // Get a list of reviews for a specific game by IGDB ID
 func GetGameReviews(w http.ResponseWriter, r *http.Request) {
 	// Get the game ID from the request
-	// vars := mux.Vars(r)
-	// gameId := vars["igdbId"]
+	 vars := mux.Vars(r)
+	 gameId := vars["igdbId"]
+
+	 gID,err :=strconv.Atoi(gameId)
+	 if err != nil {
+		http.Error(w,"game id was not an integer",500)
+	 }
+	 game,err :=igdb.GetGameByID(gID)
+	 if err != nil {
+		http.Error(w,"could not get game with that id",500)
+	 }
+	  
 
 	reviews := []GameReviewResponse{
 		{ID: "1", IGDBID: 1, UserID: 1, Review: "This game is great!", Rating: 5},
 		{ID: "2", IGDBID: 1, UserID: 2, Review: "I didn't like this game", Rating: 1},
 	}
 
+	GwR := GameWithReviews{Game:*game, Reviews: reviews}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(reviews)
+	json.NewEncoder(w).Encode(GwR)
 }
 
 // Create a new review for a game

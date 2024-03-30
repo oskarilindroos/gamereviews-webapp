@@ -1,6 +1,7 @@
 package igdb
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -11,6 +12,18 @@ type GamesList struct{
 	GameID int
 	Name string
 	Cover string
+}
+
+type IndividualGame struct{
+	GameID int
+	Name string
+	Cover string
+	AgeRating string
+	ReleaseDate int
+	Genres string
+	keywords string
+	Storyline string
+	Summary string
 }
 
 //gets games in order of id atm
@@ -54,6 +67,7 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 	covers, err := igdbConnection.Covers.List(cIDs,coverOptions)
 	if err != nil{
 		log.Fatal(err)
+		return nil,err
 	}
 
 	for _,game := range games {
@@ -70,4 +84,53 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 	}
 
 	return rGames,nil
+}
+
+func GetGameByID (gameID int)(*IndividualGame,error){
+
+	var offset int = 0
+	var numberOfGames int = 10
+
+	igdbConnection := igdb.NewClient(os.Getenv("TWITCH_CLIENT_ID"),os.Getenv("IGDB_TOKEN_TILL_17_05"),nil)
+	options:=igdb.ComposeOptions(
+		igdb.SetLimit(numberOfGames),
+		igdb.SetFields("name","cover","first_release_date","summary","storyline"),
+		igdb.SetFilter("cover",igdb.OpNotEquals,"null"),
+		igdb.SetOrder("id","asc"),
+		igdb.SetOffset(offset),
+	)
+
+	game,err := igdbConnection.Games.Get(
+		gameID,
+		options,
+	)
+	if err!= nil{
+		log.Fatal(err)
+		return nil,err
+	}
+	
+	cover,err := igdbConnection.Covers.Get(game.Cover, igdb.SetFields("*"))
+	if err != nil {
+		fmt.Printf("cover error \n")
+		log.Fatal(err)
+		return nil,err
+	}
+
+	img,err := cover.SizedURL(igdb.Size1080p,1)
+	if err != nil{
+		fmt.Printf("img error \n")
+		log.Fatal(err)
+		return nil,err
+	}
+	
+	rGame := &IndividualGame{
+		GameID:      game.ID,
+		Name:        game.Name,
+		Cover:       img,
+		ReleaseDate: game.FirstReleaseDate,
+		Storyline:   game.Storyline,
+		Summary:     game.Summary,
+	}
+
+	return rGame,nil
 }
