@@ -16,6 +16,7 @@ func NewRouter() http.Handler {
 	r.HandleFunc("/reviews/{reviewId}", GetGameReviewDetails).Methods(http.MethodGet)
 	r.HandleFunc("/reviews/{reviewId}", UpdateGameReview).Methods(http.MethodPut)
 	r.HandleFunc("/reviews/{reviewId}", DeleteGameReview).Methods(http.MethodDelete)
+	r.HandleFunc("/search",SearchGames).Methods(http.MethodGet)
 
 	return r
 }

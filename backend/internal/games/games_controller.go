@@ -133,3 +133,44 @@ func DeleteGameReview(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("Review deleted")
 }
+
+func SearchGames(w http.ResponseWriter, r *http.Request){
+
+	var page int = 1
+	var numberOfGames int = 50
+	var err error
+	var search string
+
+	if r.FormValue("searchContent") == ""{
+		http.Error(w,"Did not give search parameters",400)
+		return
+	}
+	search=r.FormValue("searchContent")
+
+	if r.FormValue("pageNumber") != ""{
+		page, err = strconv.Atoi(r.FormValue("pageNumber"))
+		if err != nil{
+			http.Error(w,"page number was not a number", 400)
+			return
+		}
+	}
+	if r.FormValue("numberOfGames") !=""{
+		numberOfGames,err = strconv.Atoi(r.FormValue("numberOfGames"))
+		if err != nil {
+			http.Error(w,"number of games was not a number",400)
+			return
+		} else if numberOfGames < 1 {
+			http.Error(w,"number has to be 1 or bigger", 400)
+			return
+		}
+	}
+	
+	g,err := GetGamesBySearch(numberOfGames,page,search)
+	if err != nil {
+		http.Error(w,"could not get games from igdb",500)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(g)
+}
