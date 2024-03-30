@@ -43,7 +43,7 @@ const GameReviewPage = () => {
                     <div className="flex flex-col w-7/12 max-md:w-full ">
 
                         <div className="bg-bice-blue max-md:mt-3 md:p-5 flex items-center justify-center">
-                            <h1 className="sm:text-4xl lg:text-7xl text-center">{gameInfo.name}</h1>
+                            <h1 className="text-4xl lg:text-7xl text-center">{gameInfo.name}</h1>
                         </div>
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
@@ -53,7 +53,7 @@ const GameReviewPage = () => {
                         </div>
 
                         <div className="flex items-center max-md:mt-3 md:p-5">
-                            <p className="text-sm sm:text-base">
+                            <p className="text-lg md:text-2xl">
                                 {gameInfo.tags.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
                             </p>
                         </div>
@@ -62,7 +62,7 @@ const GameReviewPage = () => {
                 </div>
 
                 <div className="mt-3">
-                    <p className="text-base">
+                    <p className="text-lg md:text-2xl">
                         {gameInfo.description}
                     </p>
                 </div>
