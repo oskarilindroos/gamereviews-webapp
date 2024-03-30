@@ -9,21 +9,21 @@ import (
 )
 
 type GamesList struct{
-	GameID int
-	Name string
-	Cover string
+	GameID 	int		`json:"igdbId"`
+	Name 	string	`json:"name"`
+	Cover 	string	`json:"coverUrl"`
 }
 
 type IndividualGame struct{
-	GameID int
-	Name string
-	Cover string
-	AgeRating string
-	ReleaseDate int
-	Genres string
-	keywords string
-	Storyline string
-	Summary string
+	GameID 			int		`json:"igdbId"`	
+	Name 			string	`json:"name"`
+	Cover 			string	`json:"coverUrl"`
+	AgeRating 		string	`json:"ageRating"`
+	ReleaseDate 	int		`json:"releaseDate"`
+	Genres 			string	`json:"genres"`
+	keywords 		string	`json:"keywords"`
+	Storyline 		string	`json:"storyline"`
+	Summary 		string	`json:"summary"`
 }
 
 //gets games in order of id atm
@@ -77,6 +77,7 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 				img,err := cover.SizedURL(igdb.Size1080p,1)
 				if err != nil{
 					log.Fatal(err)
+					return nil,err
 				}
 				rGames = append(rGames, &GamesList{GameID: game.ID,Name: game.Name, Cover: img})
 			}
