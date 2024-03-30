@@ -17,6 +17,7 @@ func ConnectToDB() (*sql.DB, error) {
 		Net:       os.Getenv("DB_NET"),
 		Addr:      os.Getenv("DB_ADDR"),
 		DBName:    os.Getenv("DB_DATABASE"),
+		ParseTime: true, // Parse timestamp values to time.Time
 	}
 
 	// Get database handle
