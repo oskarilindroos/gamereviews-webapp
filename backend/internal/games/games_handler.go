@@ -202,7 +202,6 @@ func (h *GamesHandler) GetGameByIdHandler(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-
 	game.Reviews = reviews
 
 	w.Header().Set("Content-Type", "application/json")

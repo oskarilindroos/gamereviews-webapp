@@ -12,15 +12,6 @@ type GameReview struct {
 	Updated time.Time `json:"updatedAt" db:"updated"`
 }
 
-type GameReviewResponse struct {
-	ID       string `json:"reviewId"`
-	IGDBID   int    `json:"igdbId"`
-	UserID   int    `json:"userId"`
-	UserName string `json:"userName"`
-	Review   string `json:"reviewText"`
-	Rating   int    `json:"rating"`
-}
-
 type GamesList struct {
 	GameID int    `json:"igdb_id"`
 	Name   string `json:"name"`
