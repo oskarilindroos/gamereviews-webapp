@@ -3,6 +3,7 @@ package games
 import (
 	"encoding/json"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/oskarilindroos/review-app/internal/models"
@@ -25,9 +26,39 @@ func WriteJSONResponse(w http.ResponseWriter, statusCode int, data any) error {
 	return json.NewEncoder(w).Encode(data)
 }
 
-func (h *GamesHandler) GetAllGamesHandler(w http.ResponseWriter, r *http.Request) {
-	games, err := h.service.GetAllGames()
+func (h *GamesHandler) GetGamesHandler(w http.ResponseWriter, r *http.Request) {
 
+	var page 			int 	= 1 			// default value for page
+	var numberOfGames 	int 	= 10			// default number for games on page
+	var err 			error
+	var order 			string	= "asc"			// default order
+	var orderBy 		string 	= "relevance"	// default games are ordered by
+
+	if r.FormValue("page_number") != ""{
+		page, err = strconv.Atoi(r.FormValue("page_number"))
+		if err != nil{
+			WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			return
+		}
+	}
+	if r.FormValue("number_of_games") !=""{
+		numberOfGames,err = strconv.Atoi(r.FormValue("number_of_games"))
+		if err != nil {
+			WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			return
+		} else if numberOfGames < 1 {
+			WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": "Page number was lower than 1 needs to be 1 or higher"})
+			return
+		}
+	}
+	if r.FormValue("order") !=""{
+		order = r.FormValue("order")
+	}
+	if r.FormValue("order_by") != "" {
+		order = r.FormValue("order_by")
+	}
+
+	games, err := h.service.GetGames(numberOfGames,page,order,orderBy)
 	if err != nil {
 		WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
 		return
@@ -142,4 +173,87 @@ func (h *GamesHandler) GetGameReviewsByIGDBIDHandler(w http.ResponseWriter, r *h
 	}
 
 	WriteJSONResponse(w, http.StatusOK, reviews)
+}
+
+func (h *GamesHandler) GetGameByIdHandler(w http.ResponseWriter, r *http.Request){
+
+	vars := mux.Vars(r)
+	igdbID := vars["igdbId"]
+
+	gID,err :=strconv.Atoi(igdbID)
+	if err != nil {
+		WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		return
+	}
+	game,err :=h.service.GetGameById(gID)
+	if err != nil {
+		WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		return
+	}
+	  
+	reviews, err := h.service.GetGameReviewsByIGDBID(igdbID)
+	if err != nil {
+		WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+		return
+	}
+
+	if len(reviews) == 0 {
+		WriteJSONResponse(w, http.StatusNotFound, map[string]string{"error": "No reviews found"})
+		return
+	}
+
+	game.Reviews = reviews
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(game)
+}
+
+func (h *GamesHandler) SearchGamesHandler(w http.ResponseWriter, r *http.Request){
+
+	var search string
+	var page 			int 	= 1 			// default value for page
+	var numberOfGames 	int 	= 10			// default number for games on page
+	var err 			error
+	var order 			string	= "asc"			// default order
+	var orderBy 		string 	= "relevance"	// default games are ordered by
+
+
+	if r.FormValue("search_content") == ""{
+		http.Error(w,"Did not give search parameters",400)
+		return
+	}
+	search=r.FormValue("search_content")
+
+	if r.FormValue("page_number") != ""{
+		page, err = strconv.Atoi(r.FormValue("page_number"))
+		if err != nil{
+			WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			return
+		}
+	}
+	if r.FormValue("number_of_games") !=""{
+		numberOfGames,err = strconv.Atoi(r.FormValue("number_of_games"))
+		if err != nil {
+			WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
+			return
+		} else if numberOfGames < 1 {
+			WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": "Page number was lower than 1 needs to be 1 or higher"})
+			return
+		}
+	}
+	if r.FormValue("order") !=""{
+		order = r.FormValue("order")
+	}
+	if r.FormValue("order_by") != "" {
+		order = r.FormValue("order_by")
+	}
+	
+	g,err := h.service.GetGamesBySearch(numberOfGames,page,search,order,orderBy)
+	if err != nil {
+		http.Error(w,"could not get games from igdb",500)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(g)
 }

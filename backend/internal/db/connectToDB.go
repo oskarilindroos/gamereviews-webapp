@@ -27,6 +27,9 @@ func ConnectToDB() (*sql.DB, error) {
 		log.Fatal(err)
 		return nil, err
 	}
+	
+	db.SetMaxOpenConns(25)
+	db.SetMaxIdleConns(5)
 
 	pingErr := db.Ping()
 	if pingErr != nil {

@@ -11,3 +11,22 @@ type GameReview struct {
 	Created time.Time `json:"createdAt" db:"created"`
 	Updated time.Time `json:"updatedAt" db:"updated"`
 }
+
+type GamesList struct {
+	GameID int    `json:"igdb_id"`
+	Name   string `json:"name"`
+	Cover  string `json:"cover_url"`
+}
+
+type IndividualGame struct {
+	GameID      int                  `json:"igdb_id"`
+	Name        string               `json:"name"`
+	Cover       string               `json:"cover_url"`
+	AgeRating   string               `json:"age_rating"`
+	ReleaseDate int                  `json:"release_date"`
+	Genres      string               `json:"genres"`
+	keywords    string               `json:"keywords"`
+	Storyline   string               `json:"storyline"`
+	Summary     string               `json:"summary"`
+	Reviews     []GameReview		 `json:"reviews"`
+}
