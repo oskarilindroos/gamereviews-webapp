@@ -2,22 +2,22 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 	"os"
 
 	"github.com/go-sql-driver/mysql"
 )
 
-func ConnectToDB() (*sql.DB, error){
+func ConnectToDB() (*sql.DB, error) {
 	var db *sql.DB
 	// Capture connection properties
 	cfg := mysql.Config{
-		User:   os.Getenv("DB_USER"),
-		Passwd: os.Getenv("DB_PASSWORD"),
-		Net: os.Getenv("DB_NET"),
-		Addr: os.Getenv("DB_ADDR"),
-		DBName: os.Getenv("DB_DATABASE"),
+		User:      os.Getenv("DB_USER"),
+		Passwd:    os.Getenv("DB_PASSWORD"),
+		Net:       os.Getenv("DB_NET"),
+		Addr:      os.Getenv("DB_ADDR"),
+		DBName:    os.Getenv("DB_DATABASE"),
+		ParseTime: true, // Parse timestamp values to time.Time
 	}
 
 	// Get database handle
@@ -25,7 +25,7 @@ func ConnectToDB() (*sql.DB, error){
 	db, err = sql.Open("mysql", cfg.FormatDSN())
 	if err != nil {
 		log.Fatal(err)
-		return nil,err
+		return nil, err
 	}
 	
 	db.SetMaxOpenConns(25)
@@ -36,7 +36,7 @@ func ConnectToDB() (*sql.DB, error){
 		log.Fatal(pingErr)
 		return nil, pingErr
 	}
-	fmt.Println("connected!")
+	log.Println("Connected to database")
 
-	return db,nil
+	return db, nil
 }

@@ -1,22 +1,38 @@
 package games
 
 import (
-	"fmt"
 	"log"
 	"os"
 
 	"github.com/Henry-Sarabia/igdb/v2"
+	"github.com/oskarilindroos/review-app/internal/models"
 )
 
-//gets games in order of id atm
-func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
+type GamesService struct {
+	repo GameReviewsRepository
+}
 
-	var rGames []*GamesList
+func NewGamesService(repo GameReviewsRepository) *GamesService {
+	return &GamesService{
+		repo: repo,
+	}
+}
+
+func (s *GamesService) GetGames( numberOfGames int, page int,order string,orderBy string) ([]*models.GamesList, error) {
+
+	var returnGames []*models.GamesList
 	var cIDs [] int
-
 	var offset int
-	if numberOfGames < 1{
-		numberOfGames = 10
+	orderIn :=igdb.OrderAscending
+
+	if order == "desc" {
+		orderIn = igdb.OrderDescending
+	} 
+	if order == "asc"{
+		orderIn = igdb.OrderAscending
+	}
+	if numberOfGames < 1 || numberOfGames > 500{
+		return nil, igdb.ErrOutOfRange
 	}
 	if page > 0{
 		offset = numberOfGames*(page-1)
@@ -29,7 +45,7 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 		igdb.SetLimit(numberOfGames),
 		igdb.SetFields("name","cover"),
 		igdb.SetFilter("cover",igdb.OpNotEquals,"null"),
-		igdb.SetOrder("id","asc"),
+		igdb.SetOrder(orderBy,orderIn),
 		igdb.SetOffset(offset),
 	)
 	
@@ -37,7 +53,7 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 		options,
 	)
 	if err!= nil{
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 
@@ -51,7 +67,7 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 	)
 	covers, err := igdbConnection.Covers.List(cIDs,coverOptions)
 	if err != nil{
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 
@@ -61,18 +77,84 @@ func GetGames ( numberOfGames int, page int) ([]*GamesList,error) {
 			if cover.ID == game.Cover{
 				img,err := cover.SizedURL(igdb.Size1080p,1)
 				if err != nil{
-					log.Fatal(err)
+					log.Println(err)
 					return nil,err
 				}
-				rGames = append(rGames, &GamesList{GameID: game.ID,Name: game.Name, Cover: img})
+				returnGames = append(returnGames, &models.GamesList{GameID: game.ID,Name: game.Name, Cover: img})
 			}
 		}
 	}
 
-	return rGames,nil
+	return returnGames,nil
 }
 
-func GetGameByID (gameID int)(*IndividualGame,error){
+func (s *GamesService) CreateGameReview(review models.GameReview) (int, error) {
+	newReviewID, err := s.repo.Create(review)
+
+	if err != nil {
+		log.Println(err)
+		return 0, err
+	}
+
+	return newReviewID, nil
+}
+
+func (s *GamesService) DeleteGameReview(reviewID string) error {
+	err := s.repo.Delete(reviewID)
+
+	if err != nil {
+		log.Println(err)
+		return err
+	}
+
+	return nil
+}
+
+func (s *GamesService) UpdateGameReview(reviewID string, review models.GameReview) (models.GameReview, error) {
+	updatedReview, err := s.repo.Update(reviewID, review)
+
+	if err != nil {
+		log.Println(err)
+		return models.GameReview{}, err
+	}
+
+	return updatedReview, nil
+}
+
+func (s *GamesService) GetAllGameReviews() ([]models.GameReview, error) {
+	reviews, err := s.repo.GetAll()
+
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return reviews, nil
+}
+
+func (s *GamesService) GetGameReviewByID(reviewID string) (models.GameReview, error) {
+	review, err := s.repo.GetByID(reviewID)
+
+	if err != nil {
+		log.Println(err)
+		return models.GameReview{}, err
+	}
+
+	return review, nil
+}
+
+func (s *GamesService) GetGameReviewsByIGDBID(igdbID string) ([]models.GameReview, error) {
+	reviews, err := s.repo.GetByIGDBID(igdbID)
+
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return reviews, nil
+}
+
+func (s *GamesService) GetGameById(gameID int)(*models.IndividualGame,error){
 
 	var offset int = 0
 	var numberOfGames int = 10
@@ -82,7 +164,6 @@ func GetGameByID (gameID int)(*IndividualGame,error){
 		igdb.SetLimit(numberOfGames),
 		igdb.SetFields("name","cover","first_release_date","summary","storyline"),
 		igdb.SetFilter("cover",igdb.OpNotEquals,"null"),
-		igdb.SetOrder("id","asc"),
 		igdb.SetOffset(offset),
 	)
 
@@ -91,25 +172,23 @@ func GetGameByID (gameID int)(*IndividualGame,error){
 		options,
 	)
 	if err!= nil{
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 	
 	cover,err := igdbConnection.Covers.Get(game.Cover, igdb.SetFields("*"))
 	if err != nil {
-		fmt.Printf("cover error \n")
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 
 	img,err := cover.SizedURL(igdb.Size1080p,1)
 	if err != nil{
-		fmt.Printf("img error \n")
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 	
-	rGame := &IndividualGame{
+	rGame := &models.IndividualGame{
 		GameID:      game.ID,
 		Name:        game.Name,
 		Cover:       img,
@@ -121,9 +200,10 @@ func GetGameByID (gameID int)(*IndividualGame,error){
 	return rGame,nil
 }
 
-func GetGamesBySearch(numberOfGames int,page int, search string)([]*GamesList,error){
+func (s *GamesService) GetGamesBySearch(numberOfGames int,page int, search string,order string,orderBy string)([]*models.GamesList,error){
+
 	var offset int = 0
-	var rGames []*GamesList
+	var rGames []*models.GamesList
 	var cIDs [] int
 	var gIDs [] int
 
@@ -154,7 +234,7 @@ func GetGamesBySearch(numberOfGames int,page int, search string)([]*GamesList,er
 		searchOptions,
 	)
 	if err!= nil{
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 
@@ -164,7 +244,7 @@ func GetGamesBySearch(numberOfGames int,page int, search string)([]*GamesList,er
 
 	games, err := igdbConnection.Games.List(gIDs,options)
 	if err != nil{
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 	for _, game := range games{
@@ -177,7 +257,7 @@ func GetGamesBySearch(numberOfGames int,page int, search string)([]*GamesList,er
 	)
 	covers, err := igdbConnection.Covers.List(cIDs,coverOptions)
 	if err != nil{
-		log.Fatal(err)
+		log.Println(err)
 		return nil,err
 	}
 
@@ -187,13 +267,14 @@ func GetGamesBySearch(numberOfGames int,page int, search string)([]*GamesList,er
 			if cover.ID == game.Cover{
 				img,err := cover.SizedURL(igdb.Size1080p,1)
 				if err != nil{
-					log.Fatal(err)
+					log.Println(err)
 					return nil,err
 				}
-				rGames = append(rGames, &GamesList{GameID: game.ID,Name: game.Name, Cover: img})
+				rGames = append(rGames, &models.GamesList{GameID: game.ID,Name: game.Name, Cover: img})
 			}
 		}
 	}
+
 
 	return rGames,nil
 }
