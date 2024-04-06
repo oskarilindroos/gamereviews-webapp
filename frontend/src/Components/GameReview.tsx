@@ -14,7 +14,14 @@ const GameReview = ({ review }: props) => {
         user_name: "Anonymous",
         email: ""
     })
-    const { userId, reviewText, rating } = review;
+
+    useEffect(() => {
+        if (!!review.userId) {
+            setUser(getUserById(review.userId))
+        }
+    }, [review])
+
+    const { reviewText, rating } = review;
     return (
         <div className="my-5">
             <div className="bg-bice-blue flex flex-row max-[350px]:flex-col justify-between p-5">
