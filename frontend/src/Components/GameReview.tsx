@@ -11,7 +11,7 @@ const GameReview = ({ review }: props) => {
                 <p className="text-2xl sm:text-4xl mr-3">Review by: {userName}</p>
                 <p className="text-7xl max-md:text-4xl">{score}</p>
             </div>
-            <div className="bg-picton-blue text-base p-5">
+            <div className="bg-picton-blue text-lg md:text-2xl p-5">
                 {reviewText}
             </div>
         </div>
