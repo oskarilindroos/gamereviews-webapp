@@ -1,4 +1,5 @@
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
+
 import GameReview from "../Components/GameReview"
 import { GameReviewData } from "../Types"
 
@@ -68,9 +69,10 @@ const GameReviewPage = () => {
                 </div>
             </div>
 
-            {/* TODO: Wrap in a Link leading to write review page */}
             <div className="bg-bice-blue mb-10 w-10/12 text-center">
-                <p className="text-4xl">Leave a review</p>
+                <Link to={`/sendreview/${gameId}`}>
+                    <p className="text-4xl">Leave a review</p>
+                </Link>
             </div>
 
             <div>

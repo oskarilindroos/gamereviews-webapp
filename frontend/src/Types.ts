@@ -1,7 +1,8 @@
 export type GameSummary = {
     image: string,
     name: string,
-    description: string
+    description: string,
+    id: string
 }
 
 export type GameReviewData = {

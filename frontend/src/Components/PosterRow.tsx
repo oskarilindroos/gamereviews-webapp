@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { GameSummary } from "../Types"
 import GamePosterCard from "./GamePosterCard";
 type props = {
@@ -9,9 +11,11 @@ const PosterRow = ({ games, page }: props) => {
 
     return (
         <>
-            {games.map((game) => (
+            {games.map((game, index) => (
                 <li>
-                    <GamePosterCard game={game} page={page}></GamePosterCard>
+                    <Link to={`/reviews/${game.id}`}>
+                        <GamePosterCard key={index} game={game} page={page} />
+                    </Link>
                 </li>
             ))}
         </>

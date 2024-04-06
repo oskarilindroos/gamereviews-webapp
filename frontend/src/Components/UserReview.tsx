@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 import { UserReviewData } from "../Types"
 type props = {
     review: UserReviewData
 }
 
 const UserReview = ({ review }: props) => {
+    const navigate = useNavigate()
     const { gameTitle, reviewText, score, reviewId, gameId } = review;
     return (
         <div className="grid grid-cols-7 sm:grid-cols-18 gap-2 bg-bice-blue">
@@ -25,11 +28,10 @@ const UserReview = ({ review }: props) => {
 
 
             <div className="col-span-2 justify-self-center p-1">
-                {/* TODO: Wrap in a Link that leads to  */}
                 {/* TODO: Make visible only if userId in localStorage matches userId parameter */}
                 <button
                     className="bg-picton-blue p-2 rounded-full"
-                    onClick={() => {/* TODO: Open edit mode */ }}>
+                    onClick={() => { navigate(`/sendreview/${gameId}/${reviewId}`) }}>
                     Edit
                 </button>
             </div>
