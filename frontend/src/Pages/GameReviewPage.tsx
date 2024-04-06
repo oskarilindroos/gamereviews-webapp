@@ -5,18 +5,13 @@ import { GameReviewData } from "../Types"
 
 const dummyData: GameReviewData[] = [
     {
-        score: 2,
-        userName: "420BlazeIt",
-        reviewText: `Lorem ipsum dolor sit amet. Est illo sint est mollitia nobis et esse quibusdam qui quisquam necessitatibus est doloremque molestiae. Et ipsum voluptatem qui quia assumenda non odit vitae ut eveniet ipsa aut autem quos et nobis voluptatibus!
-
-        Sit dolor dolorum ad architecto culpa aut laudantium veritatis aut quibusdam officiis! Aut voluptatibus animi et quos culpa aut quia officia et ducimus autem id nemo similique quo voluptatem neque.`
-    },
-    {
-        score: 4,
-        userName: "elonmusk",
-        reviewText: `Lorem ipsum dolor sit amet. Est illo sint est mollitia nobis et esse quibusdam qui quisquam necessitatibus est doloremque molestiae. Et ipsum voluptatem qui quia assumenda non odit vitae ut eveniet ipsa aut autem quos et nobis voluptatibus!
-
-        Sit dolor dolorum ad architecto culpa aut laudantium veritatis aut quibusdam officiis! Aut voluptatibus animi et quos culpa aut quia officia et ducimus autem id nemo similique quo voluptatem neque.`
+        reviewId: 1,
+        igdbId: "131913",
+        userId: null,
+        reviewText: "it was ok, for a visual novel",
+        rating: "3",
+        createdAt: "2024-04-06T14:14:49Z",
+        updatedAt: "2024-04-06T14:14:49Z"
     }
 ]
 
@@ -86,7 +81,7 @@ const GameReviewPage = () => {
 function averageScore(reviews: GameReviewData[]): number {
     let average = 0;
     if (reviews.length !== 0) {
-        reviews.map(item => average += item.score);
+        reviews.map(item => average += parseInt(item.rating));
         average /= reviews.length;
     }
     // Round to two decimal places

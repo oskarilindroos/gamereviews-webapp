@@ -1,0 +1,1 @@
+// Returns a list of reviews for a single game
