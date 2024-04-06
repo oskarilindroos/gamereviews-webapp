@@ -64,13 +64,13 @@ const GameReviewPage = () => {
                 </div>
             </div>
 
-            <div className="bg-bice-blue mb-10 w-10/12 text-center">
+            <div className="bg-bice-blue mb-10 w-full text-center">
                 <Link to={`/sendreview/${gameId}`}>
                     <p className="text-4xl">Leave a review</p>
                 </Link>
             </div>
 
-            <div>
+            <div className="w-full">
                 {dummyData.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
 
