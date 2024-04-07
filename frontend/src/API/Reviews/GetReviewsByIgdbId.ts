@@ -10,7 +10,7 @@ const GetReviewsByIgdbId = async (id: string | undefined): Promise<GameReviewDat
         const apiUrl = `${baseUrl}/api/games/${id}/reviews`
         console.log(apiUrl)
         const response = await fetch(apiUrl)
-        console.log(response.body);
+        console.log(response.status)
         if (response.status === 404) {
             return []
         } else if (response.status !== 200) {
