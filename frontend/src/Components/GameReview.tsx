@@ -8,16 +8,22 @@ type props = {
     review: GameReviewData
 }
 
+const defaultUser: UserData = {
+    id: "",
+    user_name: "Anonymous",
+    email: ""
+}
+
 const GameReview = ({ review }: props) => {
-    const [user, setUser] = useState<UserData>({
-        id: "",
-        user_name: "Anonymous",
-        email: ""
-    })
+    const [user, setUser] = useState<UserData>(
+        defaultUser
+    )
 
     useEffect(() => {
         if (!!review.userId) {
             setUser(getUserById(review.userId))
+        } else {
+            setUser(defaultUser)
         }
     }, [review])
 

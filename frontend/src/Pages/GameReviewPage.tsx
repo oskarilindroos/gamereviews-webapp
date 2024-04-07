@@ -1,7 +1,9 @@
 import { useParams, Link } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 
 import GameReview from "../Components/GameReview"
 import { GameReviewData } from "../Types"
+import GetReviewsByIgdbId from "../API/Reviews/GetReviewsByIgdbId"
 
 const dummyData: GameReviewData[] = [
     {
@@ -17,7 +19,9 @@ const dummyData: GameReviewData[] = [
 
 const GameReviewPage = () => {
     const { gameId } = useParams();
-    // TODO: Fetch actual reviews and gameInfo using gameId
+
+    const reviews = useQuery({ queryKey: ["review"], queryFn: () => GetReviewsByIgdbId(gameId) }).data
+    // TODO: Fetch actual gameInfo using gameId
     const gameInfo = {
         name: "Zombies shat on my brains",
         tags: ["Action", "Horror", "Yet another indie game"],
@@ -71,7 +75,7 @@ const GameReviewPage = () => {
             </div>
 
             <div className="w-full">
-                {dummyData.map((item, index) => <GameReview key={index} review={item} />)}
+                {reviews && reviews.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
 
         </div>
