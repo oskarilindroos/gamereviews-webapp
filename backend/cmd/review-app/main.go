@@ -15,11 +15,19 @@ import (
 func main() {
 	log.Println("Starting server...")
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-		os.Exit(1)
+	// NOTE: We load the environment variables in a specific order:
+	// https://github.com/bkeepers/dotenv?tab=readme-ov-file#customizing-rails
+	env := os.Getenv("ENV")
+	if "" == env {
+		env = "development"
 	}
+
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load() // The Original .env
 
 	port := os.Getenv("PORT")
 	if port == "" {
