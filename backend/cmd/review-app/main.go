@@ -9,16 +9,25 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/oskarilindroos/review-app/internal/db"
 	"github.com/oskarilindroos/review-app/internal/games"
+	"github.com/oskarilindroos/review-app/internal/middleware"
 )
 
 func main() {
 	log.Println("Starting server...")
 
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-		os.Exit(1)
+	// NOTE: We load the environment variables in a specific order:
+	// https://github.com/bkeepers/dotenv?tab=readme-ov-file#customizing-rails
+	env := os.Getenv("ENV")
+	if "" == env {
+		env = "development"
 	}
+
+	godotenv.Load(".env." + env + ".local")
+	if "test" != env {
+		godotenv.Load(".env.local")
+	}
+	godotenv.Load(".env." + env)
+	godotenv.Load() // The Original .env
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -42,6 +51,9 @@ func main() {
 	gamesService := games.NewGamesService(gamesRepo)
 	gamesHandler := games.NewGamesHandler(gamesService)
 	games.SetupRoutes(r, gamesHandler) // Setup /api/games routes
+
+	// Setup middleware
+	r.Use(middleware.Cors) // Enable CORS
 
 	log.Println("Server listening on port", port)
 
