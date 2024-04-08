@@ -9,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/oskarilindroos/review-app/internal/db"
 	"github.com/oskarilindroos/review-app/internal/games"
+	"github.com/oskarilindroos/review-app/internal/middleware"
 )
 
 func main() {
@@ -42,6 +43,9 @@ func main() {
 	gamesService := games.NewGamesService(gamesRepo)
 	gamesHandler := games.NewGamesHandler(gamesService)
 	games.SetupRoutes(r, gamesHandler) // Setup /api/games routes
+
+	// Setup middleware
+	r.Use(middleware.Cors) // Enable CORS
 
 	log.Println("Server listening on port", port)
 
