@@ -25,7 +25,6 @@ type IndividualGame struct {
 	AgeRating   string               `json:"ageRating"`
 	ReleaseDate int                  `json:"releaseDate"`
 	Genres      string               `json:"genres"`
-	keywords    string               `json:"keywords"`
 	Storyline   string               `json:"storyline"`
 	Summary     string               `json:"summary"`
 	Reviews     []GameReview		 `json:"reviews"`
