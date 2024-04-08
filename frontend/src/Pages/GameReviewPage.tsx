@@ -5,18 +5,6 @@ import GameReview from "../Components/GameReview"
 import { GameReviewData } from "../Types"
 import GetReviewsByIgdbId from "../API/Reviews/GetReviewsByIgdbId"
 
-const dummyData: GameReviewData[] = [
-    {
-        reviewId: 1,
-        igdbId: "131913",
-        userId: null,
-        reviewText: "it was ok, for a visual novel",
-        rating: "3",
-        createdAt: "2024-04-06T14:14:49Z",
-        updatedAt: "2024-04-06T14:14:49Z"
-    }
-]
-
 const GameReviewPage = () => {
     const { gameId } = useParams();
 
@@ -48,7 +36,7 @@ const GameReviewPage = () => {
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p className="text-7xl max-md:text-4xl">
-                                {averageScore(dummyData)}
+                                {averageScore(reviews)}
                             </p>
                         </div>
 
@@ -82,9 +70,9 @@ const GameReviewPage = () => {
     )
 }
 
-function averageScore(reviews: GameReviewData[]): number {
+function averageScore(reviews: GameReviewData[] | undefined): number {
     let average = 0;
-    if (reviews.length !== 0) {
+    if (reviews && reviews.length !== 0) {
         reviews.map(item => average += parseInt(item.rating));
         average /= reviews.length;
     }
