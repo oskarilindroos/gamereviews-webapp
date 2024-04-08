@@ -21,3 +21,5 @@
 go.work
 
 .env
+.env.local
+.env.*.local
