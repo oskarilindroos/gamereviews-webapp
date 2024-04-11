@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `game_reviews`(
     `igdb_id` varchar(36) NOT NULL,
     `user_id`varchar(36),
     `review` text(3000) NOT NULL,
-    `rating` varchar(3) NOT NULL,
+    `rating` int(3) NOT NULL,
     `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`)
