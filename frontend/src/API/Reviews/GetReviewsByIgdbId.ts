@@ -3,7 +3,7 @@
 import { GameReviewData } from "../../Types"
 import { cast, a, r } from "../QuicktypeHelperFunctions"
 
-const baseUrl = "localhost:5050"
+const baseUrl = "http://localhost:5050"
 
 const GetReviewsByIgdbId = async (id: string | undefined): Promise<GameReviewData[]> => {
     try {
@@ -15,7 +15,7 @@ const GetReviewsByIgdbId = async (id: string | undefined): Promise<GameReviewDat
             throw new Error()
         } else {
             const result = await response.json()
-            return await cast(JSON.parse(result), a(r("GameReviewData")));
+            return await cast(result, a(r("GameReviewData")));
         }
     } catch (error) {
         console.log(error)
