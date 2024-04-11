@@ -12,19 +12,24 @@ type props = {
 const ReviewForm = ({ submitHandler }: props) => {
 
     const { register, handleSubmit } = useForm<GameReviewData>()
-    const [defaultReview, setDefaultReview] = useState({ score: 3, reviewText: "" })
+    const [defaultReview, setDefaultReview] = useState({ ratingInt: 3, reviewText: "" })
     const parameters = useParams()
 
     useEffect(() => {
         if (parameters.reviewId) {
             // TODO: Fetch actual reviewInfo with reviewId
             const oldReview: GameReviewData = {
-                userName: "elonmusk420",
-                reviewText: "This is the worst game ever",
-                score: 1
+                reviewId: 1,
+                igdbId: "131913",
+                userId: null,
+                reviewText: "it was ok, for a visual novel",
+                rating: "3",
+                createdAt: "2024-04-06T14:14:49Z",
+                updatedAt: "2024-04-06T14:14:49Z"
             }
-            const { score, reviewText } = oldReview
-            setDefaultReview({ score, reviewText })
+            const { rating, reviewText } = oldReview
+            const ratingInt = parseInt(rating)
+            setDefaultReview({ ratingInt, reviewText })
         }
     }, [parameters.reviewId])
 
@@ -34,7 +39,7 @@ const ReviewForm = ({ submitHandler }: props) => {
                 <div className="my-2">
                     <label htmlFor="score">Score:</label>
                     {/* Create a dropdown with 5 elements */}
-                    <select id="score" {...register("score")} value={defaultReview.score} className="bg-bice-blue py-2 px-4 rounded-md"
+                    <select id="score" {...register("rating")} value={defaultReview.ratingInt} className="bg-bice-blue py-2 px-4 rounded-md"
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setDefaultReview((oldVal) => ({ ...oldVal, score: parseInt(event.target.value) })) }}>{/* Had to do it this way, can't change the value otherwise */}
                         {[...Array(5)].map((_, n) => (
                             <option key={n + 1} value={n + 1} >

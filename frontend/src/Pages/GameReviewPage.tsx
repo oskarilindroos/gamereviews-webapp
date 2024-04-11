@@ -1,28 +1,15 @@
 import { useParams, Link } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query"
 
 import GameReview from "../Components/GameReview"
 import { GameReviewData } from "../Types"
-
-const dummyData: GameReviewData[] = [
-    {
-        score: 2,
-        userName: "420BlazeIt",
-        reviewText: `Lorem ipsum dolor sit amet. Est illo sint est mollitia nobis et esse quibusdam qui quisquam necessitatibus est doloremque molestiae. Et ipsum voluptatem qui quia assumenda non odit vitae ut eveniet ipsa aut autem quos et nobis voluptatibus!
-
-        Sit dolor dolorum ad architecto culpa aut laudantium veritatis aut quibusdam officiis! Aut voluptatibus animi et quos culpa aut quia officia et ducimus autem id nemo similique quo voluptatem neque.`
-    },
-    {
-        score: 4,
-        userName: "elonmusk",
-        reviewText: `Lorem ipsum dolor sit amet. Est illo sint est mollitia nobis et esse quibusdam qui quisquam necessitatibus est doloremque molestiae. Et ipsum voluptatem qui quia assumenda non odit vitae ut eveniet ipsa aut autem quos et nobis voluptatibus!
-
-        Sit dolor dolorum ad architecto culpa aut laudantium veritatis aut quibusdam officiis! Aut voluptatibus animi et quos culpa aut quia officia et ducimus autem id nemo similique quo voluptatem neque.`
-    }
-]
+import GetReviewsByIgdbId from "../API/Reviews/GetReviewsByIgdbId"
 
 const GameReviewPage = () => {
     const { gameId } = useParams();
-    // TODO: Fetch actual reviews and gameInfo using gameId
+
+    const reviews = useQuery({ queryKey: ["review"], queryFn: () => GetReviewsByIgdbId(gameId) }).data
+    // TODO: Fetch actual gameInfo using gameId
     const gameInfo = {
         name: "Zombies shat on my brains",
         tags: ["Action", "Horror", "Yet another indie game"],
@@ -49,7 +36,7 @@ const GameReviewPage = () => {
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p className="text-7xl max-md:text-4xl">
-                                {averageScore(dummyData)}
+                                {averageScore(reviews)}
                             </p>
                         </div>
 
@@ -69,24 +56,24 @@ const GameReviewPage = () => {
                 </div>
             </div>
 
-            <div className="bg-bice-blue mb-10 w-10/12 text-center">
+            <div className="bg-bice-blue mb-10 w-full text-center">
                 <Link to={`/sendreview/${gameId}`}>
                     <p className="text-4xl">Leave a review</p>
                 </Link>
             </div>
 
-            <div>
-                {dummyData.map((item, index) => <GameReview key={index} review={item} />)}
+            <div className="w-full">
+                {reviews && reviews.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
 
         </div>
     )
 }
 
-function averageScore(reviews: GameReviewData[]): number {
+function averageScore(reviews: GameReviewData[] | undefined): number {
     let average = 0;
-    if (reviews.length !== 0) {
-        reviews.map(item => average += item.score);
+    if (reviews && reviews.length !== 0) {
+        reviews.map(item => average += parseInt(item.rating));
         average /= reviews.length;
     }
     // Round to two decimal places

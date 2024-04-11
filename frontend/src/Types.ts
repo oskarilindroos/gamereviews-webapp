@@ -6,9 +6,19 @@ export type GameSummary = {
 }
 
 export type GameReviewData = {
-    userName: string,
-    reviewText: string
-    score: number,
+    reviewId: number;
+    igdbId: string;
+    userId: null | string;
+    reviewText: string;
+    rating: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export type UserData = {
+    id: string,
+    user_name: string,
+    email: string
 }
 
 export type UserReviewData = {
