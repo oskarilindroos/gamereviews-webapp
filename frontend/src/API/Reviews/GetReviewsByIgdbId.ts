@@ -2,12 +2,11 @@
 
 import { GameReviewData } from "../../Types"
 import { cast, a, r } from "../QuicktypeHelperFunctions"
-
-const baseUrl = "http://localhost:5050"
+import { apiBaseUrl } from "../../App"
 
 const GetReviewsByIgdbId = async (id: string | undefined): Promise<GameReviewData[]> => {
     try {
-        const apiUrl = `${baseUrl}/api/games/${id}/reviews`
+        const apiUrl = `${apiBaseUrl}/api/games/${id}/reviews`
         const response = await fetch(apiUrl)
         if (response.status === 404) {
             return []
