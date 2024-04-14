@@ -5,6 +5,7 @@ import { GameSummary } from "../Types"
 import DropdownMenu from '../Components/DropdownMenu';
 import SearchBar from '../Components/SearchBar';
 import PosterRow from '../Components/PosterRow';
+import PageSwap from '../Components/PageSwap';
 const SearchPage = () => {
 
     const [pageNum, setPageNum] = useState<number>(1);
@@ -66,6 +67,10 @@ const SearchPage = () => {
                     <ul className="flex flex-row items-baseline mt-8">
                         <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
                     </ul>
+                    <div className="mb-10"></div>
+                    <div>
+                        <PageSwap num={pageNum}></PageSwap>
+                    </div>
                     <div className="mb-40"></div>
                 </div>
             </div>
