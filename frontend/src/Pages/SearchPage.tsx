@@ -1,11 +1,13 @@
-import DropdownMenu from '../Components/DropdownMenu';
-import Poster from '../Assets/poster_template.png'
-import SearchBar from '../Components/SearchBar';
-import GamePosterCard from '../Components/GamePosterCard';
-import PosterRow from '../Components/PosterRow';
+import { useState } from 'react';
 import { GameSummary } from "../Types"
 
+
+import DropdownMenu from '../Components/DropdownMenu';
+import SearchBar from '../Components/SearchBar';
+import PosterRow from '../Components/PosterRow';
 const SearchPage = () => {
+
+    const [pageNum, setPageNum] = useState<number>(1);
 
     let testArray: string[] = ['Test1', 'Test2', 'Test3'];
 
