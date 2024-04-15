@@ -10,11 +10,11 @@ const GameReviewPage = () => {
 
     const reviews = useQuery({ queryKey: ["review"], queryFn: () => GetReviewsByIgdbId(gameId) }).data
     // TODO: Fetch actual gameInfo using gameId
-    const gameInfo = {
+    const gameInfoDummy = {
         name: "Zombies shat on my brains",
-        tags: ["Action", "Horror", "Yet another indie game"],
-        description: "Lorem ipsum dolor sit amet. Est illo sint est mollitia nobis et esse quibusdam qui quisquam necessitatibus est doloremque molestiae. Et ipsum voluptatem qui quia assumenda non odit vitae ut eveniet ipsa aut autem quos et nobis voluptatibus!",
-        image: "https://images.pexels.com/photos/275033/pexels-photo-275033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        genres: ["Action", "Horror", "Yet another indie game"],
+        summary: "Lorem ipsum dolor sit amet. Est illo sint est mollitia nobis et esse quibusdam qui quisquam necessitatibus est doloremque molestiae. Et ipsum voluptatem qui quia assumenda non odit vitae ut eveniet ipsa aut autem quos et nobis voluptatibus!",
+        coverUrl: "https://images.pexels.com/photos/275033/pexels-photo-275033.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
     }
 
     return (
@@ -24,14 +24,14 @@ const GameReviewPage = () => {
                 <div className="flex flex-row max-lg:flex-col">
 
                     <div className="flex flex-col w-5/12 max-lg:w-full justify-start mr-3">
-                        <img src={gameInfo.image} className="object-contain"></img>
+                        <img src={gameInfoDummy.coverUrl} className="object-contain"></img>
                     </div>
 
 
                     <div className="flex flex-col w-7/12 max-lg:w-full ">
 
                         <div className="bg-bice-blue max-md:mt-3 md:p-5 flex items-center justify-center">
-                            <h1 className="text-4xl lg:text-7xl text-center">{gameInfo.name}</h1>
+                            <h1 className="text-4xl lg:text-7xl text-center">{gameInfoDummy.name}</h1>
                         </div>
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
@@ -42,7 +42,7 @@ const GameReviewPage = () => {
 
                         <div className="flex items-center max-md:mt-3 md:p-5">
                             <p className="text-lg md:text-2xl">
-                                {gameInfo.tags.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
+                                {gameInfoDummy.genres.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
                             </p>
                         </div>
 
@@ -51,7 +51,7 @@ const GameReviewPage = () => {
 
                 <div className="mt-3">
                     <p className="text-lg md:text-2xl">
-                        {gameInfo.description}
+                        {gameInfoDummy.summary}
                     </p>
                 </div>
             </div>
