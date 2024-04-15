@@ -10,6 +10,22 @@ const SearchPage = () => {
 
     const [pageNum, setPageNum] = useState<number>(1);
 
+    const swapPage = (value: any) => {
+        switch (value) {
+            case "\u2190": {
+                setPageNum(pageNum-1);
+                break;
+            }
+            case "\u2192": {
+                setPageNum(pageNum+1);
+                break;
+            }
+            default: {
+                setPageNum(value);
+            }
+        }
+    };
+
     let testArray: string[] = ['Test1', 'Test2', 'Test3'];
 
     const testGame: GameSummary = {
@@ -69,7 +85,7 @@ const SearchPage = () => {
                     </ul>
                     <div className="mb-10"></div>
                     <div>
-                        <PageSwap num={pageNum}></PageSwap>
+                        <PageSwap num={pageNum} pageSwapFunc={swapPage}></PageSwap>
                     </div>
                     <div className="mb-40"></div>
                 </div>

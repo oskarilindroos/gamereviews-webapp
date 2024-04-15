@@ -1,39 +1,37 @@
+import PageSwapRow from '../Components/PageSwapRow';
+
 type props = {
-    num: number
+    num: number,
+    pageSwapFunc: (returnNum: any) => void;
 }
 
-const PageSwap = ({ num }: props) => {
+const PageSwap = ({ num, pageSwapFunc }: props) => {
 
-    const temp = () => {
-        console.log("clicked")
+    const buttonClicked = (value: any) => {
+        pageSwapFunc(value);
     };
 
-    let bar = <img className="w-11/12 mx-4"></img>
+    let bar = <PageSwapRow nums={["\u2190", 1, 2, 3, 4, 5, "\u2192"]} currentNum={num} clickedButton={buttonClicked}></PageSwapRow>
 
-    /*
+    
     switch (num) {
         case 1: {
-            bar = <img className="w-11/12 mx-4"></img>
+            bar = <PageSwapRow nums={[0+num, 1+num, 2+num, 3+num, 4+num, "\u2192"]} currentNum={num} clickedButton={buttonClicked}></PageSwapRow>
             break;
         }
         case 2: {
-            bar = <img className="w-11/12 mx-4"></img>
+            bar = <PageSwapRow nums={["\u2190", 1, 2, 3, 4, 5, "\u2192"]} currentNum={num} clickedButton={buttonClicked}></PageSwapRow>
             break;
         }
         default: {
-            bar = <img className="w-11/12 mx-4"></img>
+            bar = <PageSwapRow nums={["\u2190", -2+num, -1+num, 0+num, 1+num, 2+num, "\u2192"]} currentNum={num} clickedButton={buttonClicked}></PageSwapRow>
         }
-    }*/
+    }
 
 
     return (
         <ul className="flex flex-row items-baseline mt-8">
-            <li className="rounded-full bg-bice-blue font-mono inline-flex justify-center w-full px-4 py-2 text-4xl font-medium text-gray-100">
-                <h1>&larr;</h1>
-            </li>
-            <li className="rounded-full bg-bice-blue font-mono inline-flex justify-center w-full px-4 py-2 text-4xl font-medium text-gray-100">
-                <h1>&rarr;</h1>
-            </li>
+            {bar}
         </ul>
     );
 };
