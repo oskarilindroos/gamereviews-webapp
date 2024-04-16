@@ -5,8 +5,6 @@ import { GameReviewData } from "../../Types"
 
 const PostNewreview = async (reviewData: GameReviewData) => {
     const apiUrl = `${apiBaseUrl}/api/games/${reviewData. igdbId}/reviews`
-    console.log(apiUrl)
-
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
@@ -14,11 +12,8 @@ const PostNewreview = async (reviewData: GameReviewData) => {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify({
-                reviewData
-            })
+            body: JSON.stringify(reviewData)
         });
-        console.log(JSON.stringify(reviewData))
         return await response.json();
     } catch (error) {
         console.log(error)
