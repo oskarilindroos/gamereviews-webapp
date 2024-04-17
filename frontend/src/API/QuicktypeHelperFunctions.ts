@@ -162,4 +162,16 @@ const typeMap: any = {
         { json: "createdAt", js: "createdAt", typ: Date },
         { json: "updatedAt", js: "updatedAt", typ: Date },
     ], false),
+    "GameSummary": o([
+        { json: "igdbId", js: "igdbId", typ: 0 },
+        { json: "name", js: "name", typ: "" },
+        { json: "coverUrl", js: "coverUrl", typ: "" },
+        { json: "ageRating", js: "ageRating", typ: "" },
+        { json: "releaseDate", js: "releaseDate", typ: 0 },
+        { json: "genres", js: "genres", typ: "" },
+        { json: "storyline", js: "storyline", typ: "" },
+        { json: "summary", js: "summary", typ: "" },
+        { json: "reviews", js: "reviews", typ: a(r("GameReviewData")) },
+    ], false),
 };
+

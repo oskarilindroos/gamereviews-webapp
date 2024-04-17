@@ -3,16 +3,15 @@ import { GameReviewData } from "../Types";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-
-
 type props = {
     submitHandler: (reviewData: GameReviewData) => void
 }
 
 const ReviewForm = ({ submitHandler }: props) => {
 
+    const defaultReview = { ratingInt: 3, reviewText: "" }
     const { register, handleSubmit } = useForm<GameReviewData>()
-    const [defaultReview, setDefaultReview] = useState({ ratingInt: 3, reviewText: "" })
+    const [review, setReview] = useState(defaultReview)
     const parameters = useParams()
 
     useEffect(() => {
@@ -29,7 +28,7 @@ const ReviewForm = ({ submitHandler }: props) => {
             }
             const { rating, reviewText } = oldReview
             const ratingInt = parseInt(rating)
-            setDefaultReview({ ratingInt, reviewText })
+            setReview({ ratingInt, reviewText })
         }
     }, [parameters.reviewId])
 
@@ -39,8 +38,8 @@ const ReviewForm = ({ submitHandler }: props) => {
                 <div className="my-2">
                     <label htmlFor="score">Score:</label>
                     {/* Create a dropdown with 5 elements */}
-                    <select id="score" {...register("rating")} value={defaultReview.ratingInt} className="bg-bice-blue py-2 px-4 rounded-md"
-                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setDefaultReview((oldVal) => ({ ...oldVal, score: parseInt(event.target.value) })) }}>{/* Had to do it this way, can't change the value otherwise */}
+                    <select id="score" {...register("rating")} value={review.ratingInt} className="bg-bice-blue py-2 px-4 rounded-md"
+                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setReview((oldVal) => ({ ...oldVal, ratingInt: parseInt(event.target.value) })) }}>{/* Had to do it this way, can't change the value otherwise */}
                         {[...Array(5)].map((_, n) => (
                             <option key={n + 1} value={n + 1} >
                                 {n + 1}
@@ -54,7 +53,7 @@ const ReviewForm = ({ submitHandler }: props) => {
                 </div>
 
                 <div>
-                    <textarea defaultValue={defaultReview.reviewText} id="reviewText" rows={5} className="w-full bg-bice-blue" {...register("reviewText", { required: true })} />
+                    <textarea defaultValue={review.reviewText} id="reviewText" rows={5} className="w-full bg-bice-blue" {...register("reviewText", { required: true })} />
                 </div>
 
                 <div className="my-2">
