@@ -191,11 +191,6 @@ func (h *GamesHandler) GetGameByIdHandler(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	if len(reviews) == 0 {
-		utils.WriteJSONResponse(w, http.StatusNotFound, map[string]string{"error": "No reviews found"})
-		return
-	}
-
 	game.Reviews = reviews
 
 	w.Header().Set("Content-Type", "application/json")
