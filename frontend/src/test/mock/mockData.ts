@@ -1,4 +1,6 @@
-export const mockGameData = {
+import { GameSummary, GameReviewData } from '../../Types';
+
+export const mockGameData: GameSummary = {
     igdbId: 119171,
     name: "Baldur's Gate 3",
     coverUrl: "https://images.igdb.com/igdb/image/upload/t_1080p/co670h.jpg",
@@ -10,7 +12,7 @@ export const mockGameData = {
     reviews: []
 }
 
-export const mockReviews = [
+export const mockReviews: GameReviewData[] = [
     {
         reviewId: 5,
         igdbId: "119171",
