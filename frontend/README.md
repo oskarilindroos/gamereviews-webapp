@@ -1,3 +1,18 @@
+# Testauksesta
+
+Kansiossa /frontend/test/mock on seuraavat tiedostot:
+- Handlers.ts: Täällä määritellään "siepattavat" API-kutsut ja niihin vastaukset
+- MockData.ts: Säilytyspaikka mock-datalle
+- Server.ts: En suosittele kajoamaan ellet tiedä mitä teet :D
+
+Testit voi suorittaa
+
+```
+npm run test
+```
+
+package-json -tiedostossa on lisää valmiita komentoja
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

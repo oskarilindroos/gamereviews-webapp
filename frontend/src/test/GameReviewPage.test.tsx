@@ -3,7 +3,6 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import GameReviewPage from '../Pages/GameReviewPage';
-import WriteReviewPage from '../Pages/WriteReviewPage';
 import { mockGameData, mockReviews } from './mock/MockData';
 import { averageScore } from '../Components/UtilityFunctions';
 
@@ -23,11 +22,7 @@ const Page = () => {
         {
           path: "/reviews/:gameId",
           element: <GameReviewPage/>
-        },
-        {
-            path: "/sendreview/:gameId",
-            element: <WriteReviewPage/>
-          },
+        }
       ];
 
     const router = createMemoryRouter(routes, {
