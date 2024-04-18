@@ -11,6 +11,7 @@
     "test": "vitest",
     "test:ci": "vitest run",
     "test:ui": "vitest --ui",
+    "test:verbose": "vitest --reporter=verbose",
     "test:coverage": "vitest run --coverage"
   },
   "dependencies": {

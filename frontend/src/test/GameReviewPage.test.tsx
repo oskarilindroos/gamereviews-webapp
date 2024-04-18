@@ -1,10 +1,10 @@
-import { getByRole, render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import GameReviewPage from '../Pages/GameReviewPage';
 import WriteReviewPage from '../Pages/WriteReviewPage';
-import { mockGameData, mockReviews } from './mock/mockData';
+import { mockGameData, mockReviews } from './mock/MockData';
 import { averageScore } from '../Components/UtilityFunctions';
 
 // QueryClient provider for custom router
@@ -31,7 +31,7 @@ const Page = () => {
       ];
 
     const router = createMemoryRouter(routes, {
-        initialEntries: ["/reviews/119171"]
+        initialEntries: [`/reviews/${mockGameData.igdbId}`]
     })
 
     return(
@@ -54,7 +54,7 @@ describe("On the GameReviewPage ", () =>{
         render(<Page/>)
 
         const averageScoreElement = await waitFor(()=>screen.findByRole("averageScore"))
-        expect(averageScoreElement).toHaveTextContent(`${averageScore(mockReviews)}`)
+        expect(averageScoreElement.innerHTML).toEqual(`${averageScore(mockReviews)}`)
     })
 
     test("game image is displayed", async () => {
@@ -88,7 +88,7 @@ describe("On the GameReviewPage ", () =>{
 
         const link = screen.getByRole("link", {name: "Leave a review"})
         expect(link).toBeInTheDocument()
-        expect(link.getAttribute("href")).toEqual("/sendreview/119171")
+        expect(link.getAttribute("href")).toEqual(`/sendreview/${mockGameData.igdbId}`)
     })
 })
 

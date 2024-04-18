@@ -38,10 +38,10 @@ const ReviewForm = ({ submitHandler }: props) => {
                 <div className="my-2">
                     <label htmlFor="score">Score:</label>
                     {/* Create a dropdown with 5 elements */}
-                    <select id="score" {...register("rating")} value={review.ratingInt} className="bg-bice-blue py-2 px-4 rounded-md"
+                    <select role="scoreSelector" id="score" {...register("rating")} value={review.ratingInt} className="bg-bice-blue py-2 px-4 rounded-md"
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setReview((oldVal) => ({ ...oldVal, ratingInt: parseInt(event.target.value) })) }}>{/* Had to do it this way, can't change the value otherwise */}
                         {[...Array(5)].map((_, n) => (
-                            <option key={n + 1} value={n + 1} >
+                            <option key={n + 1} value={n + 1} role="scoreOption">
                                 {n + 1}
                             </option>
                         ))}

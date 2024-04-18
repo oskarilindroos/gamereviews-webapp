@@ -20,6 +20,7 @@ const GameReview = ({ review }: props) => {
     )
 
     useEffect(() => {
+        // eslint-disable-next-line no-extra-boolean-cast
         if (!!review.userId) {
             setUser(getUserById(review.userId))
         } else {
