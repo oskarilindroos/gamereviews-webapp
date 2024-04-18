@@ -23,4 +23,3 @@ go.work
 .env
 .env.local
 .env.*.local
-.env.development
