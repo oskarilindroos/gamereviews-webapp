@@ -13,7 +13,7 @@ const PosterRow = ({ games, page }: props) => {
         <>
             {games.map((game, index) => (
                 <li>
-                    <Link to={`/reviews/${game.id}`}>
+                    <Link to={`/reviews/${game.igdbId}`}>
                         <GamePosterCard key={index} game={game} page={page} />
                     </Link>
                 </li>

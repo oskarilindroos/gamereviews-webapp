@@ -1,8 +1,13 @@
 export type GameSummary = {
-    image: string,
-    name: string,
-    description: string,
-    id: string
+    igdbId:      number;
+    name:        string;
+    coverUrl:    string;
+    ageRating:   string;
+    releaseDate: number;
+    genres:      string;
+    storyline:   string;
+    summary:     string;
+    reviews:     GameReviewData[];
 }
 
 export type GameReviewData = {
