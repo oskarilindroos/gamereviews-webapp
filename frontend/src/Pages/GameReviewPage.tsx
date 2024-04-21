@@ -5,6 +5,7 @@ import GameReview from "../Components/GameReview"
 import { GameReviewData, GameSummary } from "../Types"
 import GetReviewsByIgdbId from "../API/Reviews/GetReviewsByIgdbId"
 import GetGameInfoByIgdbId from "../API/Games/GetGameInfoByIgdbId"
+import { averageScore } from "../Components/UtilityFunctions"
 
 const GameReviewPage = () => {
     const { gameId } = useParams();
@@ -30,7 +31,7 @@ const GameReviewPage = () => {
                         </div>
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
-                            <p className="text-7xl max-md:text-4xl">
+                            <p role="averageScore" className="text-7xl max-md:text-4xl">
                                 {averageScore(reviews)}
                             </p>
                         </div>
@@ -65,15 +66,6 @@ const GameReviewPage = () => {
     )
 }
 
-function averageScore(reviews: GameReviewData[] | undefined): number {
-    let average = 0;
-    if (reviews && reviews.length !== 0) {
-        reviews.map(item => average += parseInt(item.rating));
-        average /= reviews.length;
-    }
-    // Round to two decimal places
-    average = Math.round(average * 100) / 100
-    return average;
-}
+
 
 export default GameReviewPage

@@ -20,6 +20,7 @@ const GameReview = ({ review }: props) => {
     )
 
     useEffect(() => {
+        // eslint-disable-next-line no-extra-boolean-cast
         if (!!review.userId) {
             setUser(getUserById(review.userId))
         } else {
@@ -29,7 +30,7 @@ const GameReview = ({ review }: props) => {
 
     const { reviewText, rating } = review;
     return (
-        <div className="my-5">
+        <div className="my-5" role="GameReview">
             <div className="bg-bice-blue flex flex-row max-[350px]:flex-col justify-between p-5">
                 <p className="text-2xl sm:text-4xl mr-3">Review by: {user.user_name}</p>
                 <p className="text-7xl max-md:text-4xl">{rating}</p>
