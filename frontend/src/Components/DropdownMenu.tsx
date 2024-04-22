@@ -11,8 +11,8 @@ const DropdownMenu = ({ name, content }: props) => {
     setIsOpen(!isOpen);
   };
 
-  const temp = () => {
-    console.log("clicked")
+  const temp = (value: string) => {
+    console.log("clicked" + value)
   };
 
 
@@ -56,7 +56,7 @@ const DropdownMenu = ({ name, content }: props) => {
             {content.map((c, index) => (
               <a
                 key={index}
-                onClick={temp}
+                onClick={() => temp(c)}
                 className="block px-4 py-2 text-sm text-gray-100 hover:bg-picton-blue hover:text-gray-100"
                 role="menuitem"
               >

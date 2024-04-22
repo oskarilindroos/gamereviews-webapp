@@ -9,6 +9,7 @@ import PageSwap from '../Components/PageSwap';
 const SearchPage = () => {
 
     const [pageNum, setPageNum] = useState<number>(1);
+    const [search, setSearch] = useState<string>('');
     const [games, setGames] = useState<GameSummarySimple[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
@@ -35,7 +36,7 @@ const SearchPage = () => {
             }
         }
 
-        fetchGames(num, '');
+        fetchGames(num, search);
     };
 
     const fetchGames = useCallback(async (numPage: number, searchTerm: string) => {
@@ -43,7 +44,7 @@ const SearchPage = () => {
         let apiAddress: string = `http://localhost:5050/api/games/?number_of_games=24&page_number=` + numPage;
 
         if (searchTerm) {
-            apiAddress = `http://localhost:5050/api/games/search?search_content=` + searchTerm;
+            apiAddress = `http://localhost:5050/api/games/search?number_of_games=24&search_content=` + searchTerm + `&page_number=` + numPage;
         }
 
 
@@ -51,16 +52,16 @@ const SearchPage = () => {
             setError(null)
             setIsLoading(true);
 
-            //`http://localhost:5050/api/games/?number_of_games=24&page_number=` + numPage
             const response = await fetch(apiAddress);
             if (!response.ok) {
-                throw new Error('Something went wrong!');
+                throw new Error('Something went wrong! The search term probably brings up nothing :/');
             }
 
             const data = await response.json();
             setGames(data);
         } catch (error: any) {
             setError(error.message);
+            alert(error.message);
             console.error('Error: ', error);
         }
         setIsLoading(false);
@@ -72,10 +73,8 @@ const SearchPage = () => {
     }, [fetchGames]);
 
     const handleSearch = (searchTerm: string) => {
-        console.log('Searching for:', searchTerm);
-        console.log(!searchTerm);
+        setSearch(searchTerm);
         fetchGames(pageNum, searchTerm);
-        // Perform search logic here
     };
 
     let testArray: string[] = ['Test1', 'Test2', 'Test3'];
