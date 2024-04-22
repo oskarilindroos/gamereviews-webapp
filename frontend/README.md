@@ -1,9 +1,9 @@
 # Testauksesta
 
 Kansiossa /frontend/test/mock on seuraavat tiedostot:
-- Handlers.ts: Täällä määritellään "siepattavat" API-kutsut ja niihin vastaukset
-- MockData.ts: Säilytyspaikka mock-datalle
-- Server.ts: En suosittele kajoamaan ellet tiedä mitä teet :D
+- handlers.ts: Täällä määritellään "siepattavat" API-kutsut ja niihin vastaukset
+- mockData.ts: Säilytyspaikka mock-datalle
+- server.ts: En suosittele kajoamaan ellet tiedä mitä teet :D
 
 Testit voi suorittaa
 
