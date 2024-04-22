@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event'
 
 import { GameReviewData } from '../Types';
 import WriteReviewPage from '../Pages/WriteReviewPage';
-import { mockGameData, mockReviews } from './mock/MockData';
+import { mockGameData, mockReviews } from './mock/mockData';
 import ReviewForm from '../Components/ReviewForm';
 
 // QueryClient provider for custom router
