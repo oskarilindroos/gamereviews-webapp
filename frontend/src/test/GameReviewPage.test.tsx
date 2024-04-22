@@ -3,7 +3,7 @@ import { RouterProvider, createMemoryRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 import GameReviewPage from '../Pages/GameReviewPage';
-import { mockGameData, mockReviews } from './mock/mockData';
+import { mockGameData, mockReviews } from './mock/MockData';
 import { averageScore } from '../Components/UtilityFunctions';
 
 // QueryClient provider for custom router
