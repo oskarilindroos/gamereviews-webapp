@@ -33,3 +33,9 @@ export type UserReviewData = {
     reviewId: string,
     gameId: string
 }
+
+export type GameSummarySimple = {
+    igdbId:      number;
+    name:        string;
+    coverUrl:    string;
+}

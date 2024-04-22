@@ -1,11 +1,11 @@
-import { GameSummary } from "../Types"
+import { GameSummarySimple } from "../Types"
 type props = {
-    game: GameSummary,
+    game: GameSummarySimple,
     page: string
 }
 
 const GamePosterCard = ({ game, page }: props) => {
-    const { name, summary, coverUrl } = game;
+    const { name, coverUrl } = game;
 
     const goToPage = () => {
         console.log(name)
@@ -19,7 +19,7 @@ const GamePosterCard = ({ game, page }: props) => {
             break;
         }
         case "SearchPage": {
-            poster = <img className="w-11/12 mx-4" src={coverUrl} onClick={goToPage}></img>
+            poster = <img className="w-11/12 mx-4 max-h-60" src={coverUrl} onClick={goToPage}></img>
             break;
         }
         default: {

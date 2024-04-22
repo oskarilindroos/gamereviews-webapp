@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { GameSummary } from "../Types"
+import { useState, useCallback, useEffect } from 'react';
+import { GameSummarySimple } from "../Types"
 
 
 import DropdownMenu from '../Components/DropdownMenu';
@@ -9,53 +9,111 @@ import PageSwap from '../Components/PageSwap';
 const SearchPage = () => {
 
     const [pageNum, setPageNum] = useState<number>(1);
+    const [search, setSearch] = useState<string>('');
+    const [games, setGames] = useState<GameSummarySimple[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<any>(null);
 
     const swapPage = (value: any) => {
+
+        //I have to do this, because otherwise fetchGames updates on a delay of one number
+        let num: number = 0;
+
         switch (value) {
             case "\u2190": {
-                setPageNum(pageNum-1);
+                num = pageNum - 1;
+                setPageNum(pageNum - 1);
                 break;
             }
             case "\u2192": {
-                setPageNum(pageNum+1);
+                num = pageNum + 1;
+                setPageNum(pageNum + 1);
                 break;
             }
             default: {
+                num = value;
                 setPageNum(value);
             }
         }
+
+        fetchGames(num, search);
     };
 
+    const fetchGames = useCallback(async (numPage: number, searchTerm: string) => {
+
+        let apiAddress: string = `http://localhost:5050/api/games/?number_of_games=24&page_number=` + numPage;
+
+        if (searchTerm) {
+            apiAddress = `http://localhost:5050/api/games/search?number_of_games=24&search_content=` + searchTerm + `&page_number=` + numPage;
+        }
+
+
+        try {
+            setError(null)
+            setIsLoading(true);
+
+            const response = await fetch(apiAddress);
+            if (!response.ok) {
+                throw new Error('Something went wrong! The search term probably brings up nothing :/');
+            }
+
+            const data = await response.json();
+            setGames(data);
+        } catch (error: any) {
+            setError(error.message);
+            alert(error.message);
+            console.error('Error: ', error);
+        }
+        setIsLoading(false);
+
+    }, []);
+
+    useEffect(() => {
+        fetchGames(1, '');
+    }, [fetchGames]);
+
     const handleSearch = (searchTerm: string) => {
-        console.log('Searching for:', searchTerm);
-        // Perform search logic here
+        setSearch(searchTerm);
+        fetchGames(pageNum, searchTerm);
     };
 
     let testArray: string[] = ['Test1', 'Test2', 'Test3'];
 
-    let testGame: GameSummary = {
 
-        coverUrl: "https://newbloodstore.com/cdn/shop/products/NBPosters_DUSK-NoBorder_2021_1024x1024.jpg?v=1644573550",
-        name: "Dusk",
-        summary: "game",
-        igdbId: 1
+    //display content based on the outcome of fetchGames
+    let content = <h1 className="font-mono text-gray-100 text-6xl">No games found</h1>;
+
+    if (error) {
+        content = <h1 className="font-mono text-gray-100 text-6xl">{error}</h1>;
     }
 
-    if(pageNum != 1)
-    {
-        testGame = {
-
-            image: "https://newbloodstore.com/cdn/shop/products/NBPosters_Ultrakill-NoBorder_2021_1024x1024.png?v=1644575011",
-            name: "Ultrakill",
-            description: "game",
-            id: "1"
-        }
+    if (isLoading) {
+        content = <h1 className="font-mono text-gray-100 text-6xl">Fetching games...</h1>;
     }
 
-    let testGames: GameSummary[] = [
-        testGame, testGame, testGame, testGame,
-        testGame, testGame, testGame, testGame
-    ];
+    if (games.length > 0) {
+        content = <>
+
+            <div className="flex flex-col items-center">
+                <ul className="flex flex-row items-baseline mt-8 h-1/6">
+                    <PosterRow games={games.slice(0, 8)} page={"SearchPage"}></PosterRow>
+                </ul>
+                <div className="mb-2"></div>
+            </div>
+            <div className="flex flex-col items-center">
+                <ul className="flex flex-row items-baseline mt-8">
+                    <PosterRow games={games.slice(8, 16)} page={"SearchPage"}></PosterRow>
+                </ul>
+                <div className="mb-2"></div>
+            </div>
+            <div className="flex flex-col items-center">
+                <ul className="flex flex-row items-baseline mt-8 h-1/6">
+                    <PosterRow games={games.slice(16)} page={"SearchPage"}></PosterRow>
+                </ul>
+                <div className="mb-10"></div>
+            </div>
+        </>
+    }
 
     return (
         <>
@@ -78,23 +136,8 @@ const SearchPage = () => {
                 </div>
             </div>
             <div className="mt-4">
+                {content}
                 <div className="flex flex-col items-center">
-                    <ul className="flex flex-row items-baseline mt-8">
-                        <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
-                    </ul>
-                    <div className="mb-2"></div>
-                </div>
-                <div className="flex flex-col items-center">
-                    <ul className="flex flex-row items-baseline mt-8">
-                        <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
-                    </ul>
-                    <div className="mb-2"></div>
-                </div>
-                <div className="flex flex-col items-center">
-                    <ul className="flex flex-row items-baseline mt-8">
-                        <PosterRow games={testGames} page={"SearchPage"}></PosterRow>
-                    </ul>
-                    <div className="mb-10"></div>
                     <div>
                         <PageSwap num={pageNum} pageSwapFunc={swapPage}></PageSwap>
                     </div>
