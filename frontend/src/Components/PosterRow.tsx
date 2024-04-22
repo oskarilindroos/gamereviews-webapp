@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-import { GameSummary } from "../Types"
+import { GameSummarySimple } from "../Types"
 import GamePosterCard from "./GamePosterCard";
 type props = {
-    games: GameSummary[],
+    games: GameSummarySimple[],
     page: string
 }
 
