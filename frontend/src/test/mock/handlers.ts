@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { mockGameData, mockReviews } from './MockData'
+import { mockGameData, mockReviews } from './mockData'
 
 export const handlers = [
     http.get(`http://localhost:5050/api/games/${mockGameData.igdbId}`, () =>{
