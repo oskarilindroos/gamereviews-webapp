@@ -2,6 +2,7 @@ package games
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -25,8 +26,8 @@ func (h *GamesHandler) GetGamesHandler(w http.ResponseWriter, r *http.Request) {
 	var page int = 1           // default value for page
 	var numberOfGames int = 10 // default number for games on page
 	var err error
-	var order string = "asc"         // default order
-	var orderBy string = "relevance" // default games are ordered by
+	var order string    // default order
+	var orderBy string // default games are ordered by
 
 	if r.FormValue("page_number") != "" {
 		page, err = strconv.Atoi(r.FormValue("page_number"))
@@ -49,9 +50,9 @@ func (h *GamesHandler) GetGamesHandler(w http.ResponseWriter, r *http.Request) {
 		order = r.FormValue("order")
 	}
 	if r.FormValue("order_by") != "" {
-		order = r.FormValue("order_by")
+		orderBy = r.FormValue("order_by")
 	}
-
+	
 	games, err := h.service.GetGames(numberOfGames, page, order, orderBy)
 	if err != nil {
 		utils.WriteJSONResponse(w, http.StatusInternalServerError, map[string]string{"error": err.Error()})
@@ -193,8 +194,7 @@ func (h *GamesHandler) GetGameByIdHandler(w http.ResponseWriter, r *http.Request
 
 	game.Reviews = reviews
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(game)
+	utils.WriteJSONResponse(w,http.StatusOK,game)
 }
 
 func (h *GamesHandler) SearchGamesHandler(w http.ResponseWriter, r *http.Request) {
@@ -203,11 +203,9 @@ func (h *GamesHandler) SearchGamesHandler(w http.ResponseWriter, r *http.Request
 	var page int = 1           // default value for page
 	var numberOfGames int = 10 // default number for games on page
 	var err error
-	var order string = "asc"         // default order
-	var orderBy string = "relevance" // default games are ordered by
 
 	if r.FormValue("search_content") == "" {
-		http.Error(w, "Did not give search parameters", 400)
+		utils.WriteJSONResponse(w,400,map[string]string{"error": "Did not give search parameters"})
 		return
 	}
 	search = r.FormValue("search_content")
@@ -229,20 +227,14 @@ func (h *GamesHandler) SearchGamesHandler(w http.ResponseWriter, r *http.Request
 			return
 		}
 	}
-	if r.FormValue("order") != "" {
-		order = r.FormValue("order")
-	}
-	if r.FormValue("order_by") != "" {
-		order = r.FormValue("order_by")
-	}
 
-	g, err := h.service.GetGamesBySearch(numberOfGames, page, search, order, orderBy)
+	g, err := h.service.GetGamesBySearch(numberOfGames, page, search)
 	if err != nil {
-		http.Error(w, "could not get games from igdb", 500)
+		log.Printf("error %v",err)
+		utils.WriteJSONResponse(w,http.StatusInternalServerError,map[string]string{"error": err.Error()})
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(g)
+	utils.WriteJSONResponse(w,http.StatusOK,g)
 }
 

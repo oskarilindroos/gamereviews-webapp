@@ -18,7 +18,7 @@ func NewGamesService(repo GameReviewsRepository) *GamesService {
 	}
 }
 
-func (s *GamesService) GetGames( numberOfGames int, page int,order string,orderBy string) ([]*models.GamesList, error) {
+func (s *GamesService) GetGames( numberOfGames int, page int, order string, orderBy string) ([]*models.GamesList, error) {
 
 	var returnGames []*models.GamesList
 	var cIDs [] int
@@ -27,10 +27,10 @@ func (s *GamesService) GetGames( numberOfGames int, page int,order string,orderB
 
 	if order == "desc" {
 		orderIn = igdb.OrderDescending
-	} 
-	if order == "asc"{
+	} else if order == "asc"{
 		orderIn = igdb.OrderAscending
 	}
+
 	if numberOfGames < 1 || numberOfGames > 500{
 		return nil, igdb.ErrOutOfRange
 	}
@@ -53,7 +53,7 @@ func (s *GamesService) GetGames( numberOfGames int, page int,order string,orderB
 		options,
 	)
 	if err!= nil{
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
 	}
 
@@ -67,7 +67,7 @@ func (s *GamesService) GetGames( numberOfGames int, page int,order string,orderB
 	)
 	covers, err := igdbConnection.Covers.List(cIDs,coverOptions)
 	if err != nil{
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
 	}
 
@@ -77,7 +77,7 @@ func (s *GamesService) GetGames( numberOfGames int, page int,order string,orderB
 			if cover.ID == game.Cover{
 				img,err := cover.SizedURL(igdb.Size1080p,1)
 				if err != nil{
-					log.Println(err)
+				//	log.Println(err)
 					return nil,err
 				}
 				returnGames = append(returnGames, &models.GamesList{GameID: game.ID,Name: game.Name, Cover: img})
@@ -172,19 +172,22 @@ func (s *GamesService) GetGameById(gameID int)(*models.IndividualGame,error){
 		options,
 	)
 	if err!= nil{
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
+	}
+	if game.ID != gameID{
+		return nil, igdb.ErrNoResults
 	}
 	
 	cover,err := igdbConnection.Covers.Get(game.Cover, igdb.SetFields("*"))
 	if err != nil {
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
 	}
 
 	img,err := cover.SizedURL(igdb.Size1080p,1)
 	if err != nil{
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
 	}
 	
@@ -200,33 +203,33 @@ func (s *GamesService) GetGameById(gameID int)(*models.IndividualGame,error){
 	return rGame,nil
 }
 
-func (s *GamesService) GetGamesBySearch(numberOfGames int,page int, search string,order string,orderBy string)([]*models.GamesList,error){
+func (s *GamesService) GetGamesBySearch(numberOfGames int,page int, search string)([]*models.GamesList,error){
 
 	var offset int = 0
 	var rGames []*models.GamesList
 	var cIDs [] int
 	var gIDs [] int
+	var empty int
 
 	if numberOfGames < 1 {
-		numberOfGames = 10
+		return nil,igdb.ErrOutOfRange
 	}
-	if page > 0{
+	if page > 1{
 		offset = numberOfGames*(page-1)
 	}else {
 		offset = 0
 	}
-
+	
 	igdbConnection := igdb.NewClient(os.Getenv("TWITCH_CLIENT_ID"),os.Getenv("IGDB_TOKEN_TILL_17_05"),nil)
 	options:=igdb.ComposeOptions(
-		igdb.SetFields("name","cover",),
-		igdb.SetFilter("cover",igdb.OpNotEquals,"null"),
-		igdb.SetOrder("id","asc"),
-		
+		igdb.SetFields("name","cover"),
+		igdb.SetLimit(numberOfGames),
 	)
 	searchOptions:=igdb.ComposeOptions(
 		igdb.SetLimit(numberOfGames),
 		igdb.SetFields("*"),
 		igdb.SetOffset(offset),
+		igdb.SetFilter("game",igdb.OpNotEquals,"null"),
 	)
 
 	results,err := igdbConnection.Search(
@@ -234,22 +237,26 @@ func (s *GamesService) GetGamesBySearch(numberOfGames int,page int, search strin
 		searchOptions,
 	)
 	if err!= nil{
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
 	}
 
+
 	for _,result := range results{
 		gIDs = append(gIDs, result.Game)
+	
 	}
 
 	games, err := igdbConnection.Games.List(gIDs,options)
 	if err != nil{
-		log.Println(err)
+		//log.Println(err)
 		return nil,err
 	}
 	for _, game := range games{
 		cIDs = append(cIDs, game.Cover)
+		
 	}
+	
 
 	coverOptions := igdb.ComposeOptions(
 		igdb.SetFields("*"),
@@ -257,24 +264,31 @@ func (s *GamesService) GetGamesBySearch(numberOfGames int,page int, search strin
 	)
 	covers, err := igdbConnection.Covers.List(cIDs,coverOptions)
 	if err != nil{
-		log.Println(err)
+	//	log.Println(err)
 		return nil,err
 	}
 
-	for _,game := range games {
-		for _,cover := range covers{
-
-			if cover.ID == game.Cover{
-				img,err := cover.SizedURL(igdb.Size1080p,1)
-				if err != nil{
-					log.Println(err)
-					return nil,err
+	for _,gameO := range gIDs{
+		for _,game := range games {
+			if gameO == game.ID{
+				if game.Cover !=empty{
+					for _,cover := range covers{
+						if cover.Game == game.ID{
+							img,err := cover.SizedURL(igdb.Size1080p,1)
+							if err != nil{
+								//log.Println(err)
+								return nil,err
+							}
+							rGames = append(rGames,&models.GamesList{GameID: gameO, Name: game.Name, Cover: img})
+						}
+					}
+				}else{
+					rGames = append(rGames, &models.GamesList{GameID: gameO, Name: game.Name})
 				}
-				rGames = append(rGames, &models.GamesList{GameID: game.ID,Name: game.Name, Cover: img})
+			
 			}
 		}
 	}
-
 
 	return rGames,nil
 }
