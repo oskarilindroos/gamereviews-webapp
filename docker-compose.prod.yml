@@ -18,4 +18,4 @@ services:
     build: ./frontend
     restart: always
     ports:
-    - 80:80
+    - 5173:80
