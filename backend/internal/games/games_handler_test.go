@@ -86,7 +86,7 @@ func TestGetGamesHandler(t *testing.T){
 			handler.GetGamesHandler(resp, req)
 
 			if resp.Result().StatusCode != test.wantCode {
-				t.Fatalf("The status code should be <%v> but received <%v>",resp.Result().StatusCode,test.wantCode)
+				t.Fatalf("The status code should be <%v> but received <%v>",test.wantCode,resp.Result().StatusCode)
 			}
 			if resp.Result().StatusCode == http.StatusOK{
 
