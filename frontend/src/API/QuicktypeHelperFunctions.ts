@@ -124,9 +124,6 @@ export function cast<T>(val: any, typ: any): T {
     return transform(val, typ, jsonToJSProps);
 }
 
-function uncast<T>(val: T, typ: any): any {
-    return transform(val, typ, jsToJSONProps);
-}
 
 function l(typ: any) {
     return { literal: typ };
@@ -142,10 +139,6 @@ function u(...typs: any[]) {
 
 function o(props: any[], additional: any) {
     return { props, additional };
-}
-
-function m(additional: any) {
-    return { props: [], additional };
 }
 
 export function r(name: string) {
