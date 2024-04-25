@@ -30,14 +30,6 @@ function jsonToJSProps(typ: any): any {
     return typ.jsonToJS;
 }
 
-function jsToJSONProps(typ: any): any {
-    if (typ.jsToJSON === undefined) {
-        const map: any = {};
-        typ.props.forEach((p: any) => map[p.js] = { key: p.json, typ: p.typ });
-        typ.jsToJSON = map;
-    }
-    return typ.jsToJSON;
-}
 
 function transform(val: any, typ: any, getProps: any, key: any = '', parent: any = ''): any {
     function transformPrimitive(typ: string, val: any): any {
