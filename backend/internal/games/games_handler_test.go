@@ -61,7 +61,7 @@ func TestGetGamesHandler(t *testing.T){
 		wantCode			int
 	}{
 		{"get single game with status ok","1","1","desc","relevance",single,"", http.StatusOK},
-		{"get list of games with status ok","1","10","desc","hypes",multi,"", http.StatusOK},
+		{"get list of games with status ok","1","10","asc","id",multi,"", http.StatusOK},
 		{"Get error empty variables","","","","",nil,
 		`{"error":"cannot get index of Games: cannot create request with invalid options: cannot unwrap invalid option: cannot compose invalid functional options: cannot unwrap invalid option: one or more provided option field values are empty"}`,
 		http.StatusInternalServerError},

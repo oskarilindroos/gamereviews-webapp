@@ -177,7 +177,7 @@ func TestGetGames(t *testing.T)(){
 		wantErr error
 	}{
 		{"Valid response: 1 game",1,1,"desc","relevance", single, nil},
-		{"Valid response: 10 games",10,1,"desc","hypes", multi, nil},
+		{"Valid response: 10 games",10,1,"asc","id", multi, nil},
 		{"Game number out of range",-1,1,"asc","name", nil, igdb.ErrOutOfRange},
 		{"Error Empty Fields",1,1,"","",nil,igdb.ErrEmptyFields},
 	}
