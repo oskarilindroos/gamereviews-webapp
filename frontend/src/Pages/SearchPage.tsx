@@ -10,6 +10,7 @@ const SearchPage = () => {
 
     const [pageNum, setPageNum] = useState<number>(1);
     const [search, setSearch] = useState<string>('');
+    const [orderBy, setOrderBy] = useState<string>('');
     const [games, setGames] = useState<GameSummarySimple[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
@@ -36,15 +37,20 @@ const SearchPage = () => {
             }
         }
 
-        fetchGames(num, search);
+        fetchGames(num, search, orderBy);
     };
 
-    const fetchGames = useCallback(async (numPage: number, searchTerm: string) => {
+    const fetchGames = useCallback(async (numPage: number, searchTerm: string, ordering: string) => {
 
         let apiAddress: string = `http://localhost:5050/api/games/?number_of_games=24&page_number=` + numPage;
 
         if (searchTerm) {
             apiAddress = `http://localhost:5050/api/games/search?number_of_games=24&search_content=` + searchTerm + `&page_number=` + numPage;
+        }
+
+        if (orderBy) {
+            apiAddress = apiAddress + `&order_by=` + ordering + `&order=desc`
+            console.log(apiAddress);
         }
 
 
@@ -69,15 +75,33 @@ const SearchPage = () => {
     }, []);
 
     useEffect(() => {
-        fetchGames(1, '');
+        fetchGames(1, '', '');
     }, [fetchGames]);
+
+    const temp = (value: string) => {
+        console.log("clicked" + value);
+    };
+
+    let orderByValues: string[] = ['name', 'hype', 'id', 'release date'];
+
+    const orderByFunc = (ordering: string) => {
+        if (ordering == 'release date') {
+            ordering = 'releaseDate'
+        }
+
+        console.log(ordering);
+        setOrderBy(ordering);
+        setPageNum(1);
+        fetchGames(1, search, ordering);
+    };
 
     const handleSearch = (searchTerm: string) => {
         setSearch(searchTerm);
-        fetchGames(pageNum, searchTerm);
+        setPageNum(1);
+        fetchGames(1, searchTerm, orderBy);
     };
 
-    let testArray: string[] = ['Test1', 'Test2', 'Test3'];
+    let testArray: string[] = ['placeholder1', 'placeholder2', 'placeholder3'];
 
 
     //display content based on the outcome of fetchGames
@@ -121,10 +145,10 @@ const SearchPage = () => {
                 <div className="flex flex-row">
 
                     <div className="pr-14">
-                        <DropdownMenu name={"order"} content={testArray}></DropdownMenu>
-                        <DropdownMenu name={"tags"} content={testArray}></DropdownMenu>
-                        <DropdownMenu name={"year"} content={testArray}></DropdownMenu>
-                        <DropdownMenu name={"rating"} content={testArray}></DropdownMenu>
+                        <DropdownMenu name={"order"} content={orderByValues} searchVarFunc={orderByFunc}></DropdownMenu>
+                        <DropdownMenu name={"tags"} content={testArray} searchVarFunc={temp}></DropdownMenu>
+                        <DropdownMenu name={"year"} content={testArray} searchVarFunc={temp}></DropdownMenu>
+                        <DropdownMenu name={"rating"} content={testArray} searchVarFunc={temp}></DropdownMenu>
                     </div>
 
                     <div className="flex flex-row ml-auto">
