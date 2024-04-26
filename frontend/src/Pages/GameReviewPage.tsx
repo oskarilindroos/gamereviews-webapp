@@ -6,6 +6,7 @@ import { GameReviewData, GameSummary } from "../Types"
 import GetReviewsByIgdbId from "../API/Reviews/GetReviewsByIgdbId"
 import GetGameInfoByIgdbId from "../API/Games/GetGameInfoByIgdbId"
 import { averageScore } from "../Components/UtilityFunctions"
+import { maxScore } from "../App"
 
 const GameReviewPage = () => {
     const { gameId } = useParams();
@@ -32,7 +33,7 @@ const GameReviewPage = () => {
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p role="averageScore" className="text-7xl max-md:text-4xl">
-                                {reviews && reviews?.length > 0 ? averageScore(reviews) : 'No reviews yet'}
+                                {reviews && reviews?.length > 0 ? `Average score:${averageScore(reviews)}/${maxScore}`  : 'No reviews yet'}
                             </p>
                         </div>
 
