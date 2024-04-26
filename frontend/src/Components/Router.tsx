@@ -7,7 +7,6 @@ import WriteReviewPage from '../Pages/WriteReviewPage';
 import RootLayout from '../Pages/RootLayout';
 import FrontPage from '../Pages/FrontPage';
 import SearchPage from '../Pages/SearchPage';
-import UserReviewPage from '../Pages/UserReviewPage';
 
 
 const router = createBrowserRouter([{
