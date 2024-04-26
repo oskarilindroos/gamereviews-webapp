@@ -32,7 +32,7 @@ const GameReviewPage = () => {
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p role="averageScore" className="text-7xl max-md:text-4xl">
-                                {averageScore(reviews)}
+                                {reviews && reviews?.length > 0 ? averageScore(reviews) : 'No reviews yet'}
                             </p>
                         </div>
 
@@ -59,6 +59,7 @@ const GameReviewPage = () => {
             </div>
 
             <div className="w-full">
+                {reviews && reviews.length === 0? 'This game has not been reviewed yet' : ''}
                 {reviews && reviews.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
 
