@@ -39,18 +39,13 @@ const GameReviewPage = () => {
 
                         <div className="flex items-center max-md:mt-3 md:p-5">
                             <p className="text-lg md:text-2xl">
-                                {tagList && tagList.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
+                            {gameInfo && gameInfo.summary}
                             </p>
                         </div>
 
                     </div>
                 </div>
 
-                <div className="mt-3">
-                    <p className="text-lg md:text-2xl">
-                        {gameInfo && gameInfo.summary}
-                    </p>
-                </div>
             </div>
 
             <div className="bg-bice-blue mb-10 w-full text-center">
