@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useParams } from "react-router-dom"
 
 import UserReview from "../Components/UserReview"
@@ -30,6 +31,7 @@ const dummyData: UserReviewData[] = [
 
 const UserReviewPage = () => {
     const { userId } = useParams()
+    userId
     const userName = "elonmusk"
     // TODO: Fetch actual username and reviews from API based on user ID
     return (

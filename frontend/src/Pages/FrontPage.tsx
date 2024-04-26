@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 
 import Laptop from '../Assets/laptop.png'
-import Poster from '../Assets/poster_template.png'
+//import Poster from '../Assets/poster_template.png'
 import PosterRow from '../Components/PosterRow';
 import { GameSummarySimple } from '../Types';
 
