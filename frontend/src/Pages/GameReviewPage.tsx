@@ -12,7 +12,6 @@ const GameReviewPage = () => {
     const { gameId } = useParams();
     const reviews: GameReviewData[] | undefined = useQuery({ queryKey: ["review"], queryFn: () => GetReviewsByIgdbId(gameId) }).data
     const gameInfo: GameSummary | undefined = useQuery({queryKey:["gameInfo"], queryFn: () => GetGameInfoByIgdbId(gameId)}).data
-    const tagList = gameInfo && gameInfo.genres.split(',')
 
     return (
         <div className="bg-indigo-dye text-gray-100 font-mono flex flex-col items-center overflow-auto">
