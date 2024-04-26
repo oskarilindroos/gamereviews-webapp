@@ -7,6 +7,6 @@ export function averageScore(reviews: GameReviewData[] | undefined): number {
         average /= reviews.length;
     }
     // Round to two decimal places
-    average = Math.round(average * 100) / 100
+    average = Math.round(average * 10) / 10
     return average;
 }
