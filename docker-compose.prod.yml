@@ -2,7 +2,10 @@ version: '3.1'
 
 services:
   db:
+    container_name: 'review_db'
     image: mysql:8.1
+    networks:
+      - default
     restart: always
     environment:
       MYSQL_USER: '${DB_USER}'
@@ -13,9 +16,32 @@ services:
       - '3306:3306'
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 5
+
+  backend:
+    container_name: 'review_api'
+    build: ./backend
+    restart: always
+    networks:
+      - default
+    ports:
+      - 5050:5050
+    depends_on:
+      db:
+        condition: service_healthy
 
   frontend:
     build: ./frontend
     restart: always
+    networks:
+      - default
     ports:
-    - 5173:80
+      - 5173:80
+    depends_on:
+      - backend
+
+networks:
+  default:
