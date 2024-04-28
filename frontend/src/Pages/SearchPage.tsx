@@ -10,7 +10,7 @@ const SearchPage = () => {
 
     const [pageNum, setPageNum] = useState<number>(1);
     const [search, setSearch] = useState<string>('');
-    const [orderBy, setOrderBy] = useState<string>('');
+    const [orderBy, setOrderBy] = useState<string>('name');
     const [games, setGames] = useState<GameSummarySimple[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
@@ -50,7 +50,6 @@ const SearchPage = () => {
 
         if (orderBy) {
             apiAddress = apiAddress + `&order_by=` + ordering + `&order=desc`
-            console.log(apiAddress);
         }
 
 
@@ -75,7 +74,7 @@ const SearchPage = () => {
     }, []);
 
     useEffect(() => {
-        fetchGames(1, '', '');
+        fetchGames(1, '', orderBy);
     }, [fetchGames]);
 
     const temp = (value: string) => {
@@ -89,7 +88,6 @@ const SearchPage = () => {
             ordering = 'releaseDate'
         }
 
-        console.log(ordering);
         setOrderBy(ordering);
         setPageNum(1);
         fetchGames(1, search, ordering);
