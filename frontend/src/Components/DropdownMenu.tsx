@@ -14,19 +14,19 @@ const DropdownMenu = ({ name, content, searchVarFunc }: props) => {
 
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left w-3/12 pr-2">
       <div>
         <button
           type="button"
           onClick={toggleDropdown}
-          className="font-mono inline-flex justify-center w-full px-4 py-2 text-4xl font-medium text-gray-100 rounded-md hover:bg-bice-blue focus:outline-none focus-visible:ring-2 focus-visible:text-gray-100 focus-visible:ring-opacity-75"
+          className="font-mono text-2xl inline-flex justify-center w-11/12 px-4 py-2 font-medium text-gray-100 rounded-md hover:bg-bice-blue focus:outline-none focus-visible:ring-2 focus-visible:text-gray-100 focus-visible:ring-opacity-75"
           id="options-menu"
           aria-expanded="true"
           aria-haspopup="true"
         >
           {name}
           <svg
-            className="-mr-1 ml-2 h-10 w-10"
+            className="-mr-1 ml-2 w-3/12"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
             fill="currentColor"
@@ -43,7 +43,7 @@ const DropdownMenu = ({ name, content, searchVarFunc }: props) => {
 
       {isOpen && (
         <div
-          className="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-bice-blue ring-1 ring-black ring-opacity-5 focus:outline-none"
+          className="origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-bice-blue ring-1 ring-black ring-opacity-5 focus:outline-none"
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="options-menu"
