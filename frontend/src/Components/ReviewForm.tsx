@@ -3,6 +3,8 @@ import { GameReviewData } from "../Types";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import { maxScore } from "../App";
+
 type props = {
     submitHandler: (reviewData: GameReviewData) => void
 }
@@ -40,7 +42,7 @@ const ReviewForm = ({ submitHandler }: props) => {
                     {/* Create a dropdown with 5 elements */}
                     <select role="scoreSelector" id="score" {...register("rating")} value={review.ratingInt} className="bg-bice-blue py-2 px-4 rounded-md"
                         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => { setReview((oldVal) => ({ ...oldVal, ratingInt: parseInt(event.target.value) })) }}>{/* Had to do it this way, can't change the value otherwise */}
-                        {[...Array(5)].map((_, n) => (
+                        {[...Array(maxScore)].map((_, n) => (
                             <option key={n + 1} value={n + 1} role="scoreOption">
                                 {n + 1}
                             </option>

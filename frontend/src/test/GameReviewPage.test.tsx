@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import GameReviewPage from '../Pages/GameReviewPage';
 import { mockGameData, mockReviews } from './mock/mockData';
 import { averageScore } from '../Components/UtilityFunctions';
+import { maxScore } from '../App';
 
 // QueryClient provider for custom router
 const ClientProvider = ({children}:{children: React.ReactElement}) =>{
@@ -49,7 +50,7 @@ describe("On the GameReviewPage ", () =>{
         render(<Page/>)
 
         const averageScoreElement = await waitFor(()=>screen.findByRole("averageScore"))
-        expect(averageScoreElement.innerHTML).toEqual(`${averageScore(mockReviews)}`)
+        expect(averageScoreElement.innerHTML).toEqual(`Average score: ${averageScore(mockReviews)}/${maxScore}`)
     })
 
     test("game image is displayed", async () => {
@@ -73,7 +74,7 @@ describe("On the GameReviewPage ", () =>{
         const reviews = await screen.findAllByRole("GameReview")
         expect(mockReviews.length).toEqual(reviews.length)
         mockReviews.forEach((mock)=>{
-            expect(screen.getByText(mock.rating)).toBeInTheDocument()
+            expect(screen.getByText(`${mock.rating}/${maxScore}`)).toBeInTheDocument()
             expect(screen.getByText( mock.reviewText)).toBeInTheDocument()
         })
     })

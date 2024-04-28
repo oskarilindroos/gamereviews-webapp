@@ -6,12 +6,12 @@ import { GameReviewData, GameSummary } from "../Types"
 import GetReviewsByIgdbId from "../API/Reviews/GetReviewsByIgdbId"
 import GetGameInfoByIgdbId from "../API/Games/GetGameInfoByIgdbId"
 import { averageScore } from "../Components/UtilityFunctions"
+import { maxScore } from "../App"
 
 const GameReviewPage = () => {
     const { gameId } = useParams();
     const reviews: GameReviewData[] | undefined = useQuery({ queryKey: ["review"], queryFn: () => GetReviewsByIgdbId(gameId) }).data
     const gameInfo: GameSummary | undefined = useQuery({queryKey:["gameInfo"], queryFn: () => GetGameInfoByIgdbId(gameId)}).data
-    const tagList = gameInfo && gameInfo.genres.split(',')
 
     return (
         <div className="bg-indigo-dye text-gray-100 font-mono flex flex-col items-center overflow-auto">
@@ -32,24 +32,19 @@ const GameReviewPage = () => {
 
                         <div className=" flex items-center max-md:mt-3 md:p-5">
                             <p role="averageScore" className="text-7xl max-md:text-4xl">
-                                {averageScore(reviews)}
+                                {reviews && reviews?.length > 0 ? `Average score: ${averageScore(reviews)}/${maxScore}`  : 'No reviews yet'}
                             </p>
                         </div>
 
                         <div className="flex items-center max-md:mt-3 md:p-5">
                             <p className="text-lg md:text-2xl">
-                                {tagList && tagList.map((tag, index) => <span key={index} > {` [${tag}] `} </span>)}
+                            {gameInfo && gameInfo.summary}
                             </p>
                         </div>
 
                     </div>
                 </div>
 
-                <div className="mt-3">
-                    <p className="text-lg md:text-2xl">
-                        {gameInfo && gameInfo.summary}
-                    </p>
-                </div>
             </div>
 
             <div className="bg-bice-blue mb-10 w-full text-center">
@@ -59,6 +54,7 @@ const GameReviewPage = () => {
             </div>
 
             <div className="w-full">
+                {reviews && reviews.length === 0? 'This game has not been reviewed yet' : ''}
                 {reviews && reviews.map((item, index) => <GameReview key={index} review={item} />)}
             </div>
 

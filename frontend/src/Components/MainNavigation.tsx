@@ -19,19 +19,18 @@ const MainNavigation = () => {
                             </Link>
                         </li>
 
-                        <li>
-                            {/* TODO: Replace :userId with actual userId */}
-
-                            {/* TODO: Make visible to logged in users only */}
+{/*                         <li>
                             <Link to="/user/:userId/reviews">
                                 <h1 className="font-mono text-gray-100 text-4xl ml-10">my reviews</h1>
                             </Link>
-                        </li>
-                        <li>
+                        </li> */}
+
+{/*                         <li>
                             <Link to="/">
                                 <h1 className="font-mono text-gray-100 text-4xl ml-10">sign in</h1>
                             </Link>
-                        </li>
+                        </li> */}
+
                     </div>
                 </ul>
             </nav>
