@@ -27,7 +27,7 @@ func ConnectToDB() (*sql.DB, error) {
 		log.Fatal(err)
 		return nil, err
 	}
-	
+
 	db.SetMaxOpenConns(25)
 	db.SetMaxIdleConns(5)
 
@@ -36,7 +36,6 @@ func ConnectToDB() (*sql.DB, error) {
 		log.Fatal(pingErr)
 		return nil, pingErr
 	}
-	log.Println("Connected to database")
 
 	return db, nil
 }
